@@ -187,7 +187,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
         
-        {post.faqSection && post.faqSection.length > 0 && (
+        {post.faqSection && Array.isArray(post.faqSection) && post.faqSection.length > 0 && (
           <div className="faq-section">
             <h2>Frequently Asked Questions</h2>
             {(post.faqSection as any[]).map((faq: any, index: number) => (

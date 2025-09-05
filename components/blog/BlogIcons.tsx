@@ -70,8 +70,10 @@ export const BlogIcons = {
   )
 };
 
+import React from 'react';
+
 export const getBlogIcon = (iconName: string) => {
-  const icons: { [key: string]: JSX.Element } = {
+  const icons: { [key: string]: React.ReactElement } = {
     'application-tips': BlogIcons.applicationTips,
     'personal-statement': BlogIcons.personalStatement,
     'interview-prep': BlogIcons.interviewPrep,

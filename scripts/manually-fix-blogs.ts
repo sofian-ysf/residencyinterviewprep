@@ -24,7 +24,7 @@ async function manuallyFixBlogs() {
     
     if (contentMatch) {
       // Clean up the extracted content
-      let cleanContent = contentMatch[1]
+      const cleanContent = contentMatch[1]
         .replace(/\\n/g, '\n')
         .replace(/\\"/g, '"')
         .replace(/\\\\/g, '\\');

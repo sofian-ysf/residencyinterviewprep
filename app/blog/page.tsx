@@ -9,7 +9,7 @@ import Footer from "@/components/layout/Footer";
 import { format } from "date-fns";
 
 async function getBlogPosts(category?: string) {
-  const where = category ? { category } : {};
+  const where = category ? { category: category as any } : {};
   
   const posts = await prisma.blogPost.findMany({
     where,

@@ -82,7 +82,8 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/auth/signin",
-    signUp: "/auth/signup",
     error: "/auth/error",
+    // Note: signUp is not a valid NextAuth page option
+    // Users will be redirected to signup via the signIn page
   },
 };

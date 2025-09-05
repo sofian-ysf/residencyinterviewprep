@@ -1,0 +1,73 @@
+export const PRICING_PLANS = [
+  {
+    id: 'basic',
+    name: 'Basic Package',
+    price: 149,
+    priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_BASIC,
+    currency: 'usd',
+    interval: 'one-time',
+    features: [
+      'Personal Statement Review',
+      'CV/Resume Formatting',
+      '1 Round of Revisions',
+      '48-hour Turnaround',
+      'Basic Grammar Check',
+    ],
+    highlighted: false,
+  },
+  {
+    id: 'professional',
+    name: 'Professional Package',
+    price: 299,
+    priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_PROFESSIONAL,
+    currency: 'usd',
+    interval: 'one-time',
+    features: [
+      'Everything in Basic',
+      'Activity Descriptions Review',
+      'Letter of Recommendation Guidance',
+      '3 Rounds of Revisions',
+      '24-hour Turnaround',
+      'Advanced Content Optimization',
+      'Interview Preparation Guide',
+    ],
+    highlighted: true,
+    badge: 'Most Popular',
+  },
+  {
+    id: 'premium',
+    name: 'Premium Package',
+    price: 499,
+    priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_PREMIUM,
+    currency: 'usd',
+    interval: 'one-time',
+    features: [
+      'Everything in Professional',
+      'Complete Application Review',
+      'School-Specific Tailoring',
+      'Unlimited Revisions for 30 days',
+      '12-hour Turnaround',
+      'Priority Support',
+      '1-on-1 Strategy Session (30 min)',
+      'Mock Interview Session',
+    ],
+    highlighted: false,
+  },
+];
+
+export const ADDONS = [
+  {
+    id: 'rush',
+    name: 'Rush Delivery',
+    price: 99,
+    priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_RUSH,
+    description: '6-hour turnaround for urgent applications',
+  },
+  {
+    id: 'additional-school',
+    name: 'Additional School Application',
+    price: 79,
+    priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ADDITIONAL_SCHOOL,
+    description: 'Tailor your application for one additional school',
+  },
+];

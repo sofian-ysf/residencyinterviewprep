@@ -30,6 +30,7 @@ model User {
   applications  Application[]
   reviews       Review[]
   payments      Payment[]
+  subscriptions Subscription[]
   
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -193,17 +194,41 @@ model Payment {
   userId        String
   user          User     @relation(fields: [userId], references: [id])
   
-  applicationId String   @unique
-  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String?   @unique
+  application   Application? @relation(fields: [applicationId], references: [id])
   
   stripePaymentId String? @unique
+  stripePaymentIntentId String? @unique
   stripeCustomerId String?
+  stripeSessionId String?
   
   amount        Float
   currency      String   @default("usd")
   status        PaymentStatus
   
-  packageType   PackageType
+  packageType   String
+  packageName   String?
+  
+  metadata      Json?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Subscription records for recurring payments
+model Subscription {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  
+  stripeSubscriptionId String @unique
+  stripeCustomerId String
+  stripePriceId String
+  
+  status        SubscriptionStatus
+  currentPeriodStart DateTime
+  currentPeriodEnd DateTime
+  cancelAtPeriodEnd Boolean @default(false)
   
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -272,4 +297,14 @@ enum BlogCategory {
   PROGRAM_SELECTION
   MATCH_STRATEGY
   SUCCESS_STORIES
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  PAST_DUE
+  TRIALING
+  UNPAID
 }
