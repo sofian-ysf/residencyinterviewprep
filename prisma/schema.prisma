@@ -1,0 +1,275 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// User authentication and profile
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  emailVerified DateTime?
+  password      String?
+  role          UserRole  @default(APPLICANT)
+  
+  // Profile details
+  medicalSchool String?
+  graduationYear Int?
+  specialty     String?
+  
+  accounts      Account[]
+  sessions      Session[]
+  applications  Application[]
+  reviews       Review[]
+  payments      Payment[]
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ERAS Application data
+model Application {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  packageType   PackageType
+  status        ApplicationStatus @default(DRAFT)
+  
+  // Personal Statement
+  personalStatement String?
+  psWordCount      Int?
+  psCharCount      Int?
+  
+  // Program Signals
+  programSignals   Json?
+  
+  // Impactful Experiences
+  impactfulExperience String?
+  
+  documents     Document[]
+  experiences   Experience[]
+  reviews       Review[]
+  payment       Payment?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Individual experience entries
+model Experience {
+  id            String   @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  
+  title         String
+  organization  String
+  startDate     DateTime
+  endDate       DateTime?
+  ongoing       Boolean  @default(false)
+  
+  description   String   // 750 characters
+  charCount     Int
+  
+  isMostMeaningful Boolean @default(false)
+  meaningfulDescription String? // 300 characters if most meaningful
+  
+  experienceType ExperienceType
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Document uploads and versions
+model Document {
+  id            String   @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  
+  fileName      String
+  fileUrl       String
+  fileType      DocumentType
+  version       Int      @default(1)
+  
+  content       String?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Reviews by medical professionals
+model Review {
+  id            String   @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  
+  reviewerId    String
+  reviewer      User     @relation(fields: [reviewerId], references: [id])
+  
+  status        ReviewStatus @default(PENDING)
+  
+  // AI Review
+  aiReview      Json?
+  aiScore       Float?
+  
+  // Human Review
+  overallFeedback String?
+  psComments      String?
+  experienceComments Json?
+  
+  rating        Int?     // 1-5 rating
+  
+  reviewStarted DateTime?
+  reviewCompleted DateTime?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Blog posts
+model BlogPost {
+  id            String   @id @default(cuid())
+  title         String
+  slug          String   @unique
+  excerpt       String
+  content       String   // HTML content
+  category      BlogCategory
+  tags          String   // Comma-separated tags
+  icon          String   // SVG icon name
+  publishedAt   DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  featured      Boolean  @default(false)
+  readTime      Int      // in minutes
+  views         Int      @default(0)
+  
+  // Additional SEO and content fields
+  author        String?  @default("MyERAS Reviewer Team")
+  featuredImage String?
+  metaDescription String?
+  faqSection    Json?    // Array of FAQ objects
+  schemaMarkup  String?  // JSON-LD schema markup
+  
+  createdAt     DateTime @default(now())
+}
+
+// Payment records
+model Payment {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  
+  applicationId String   @unique
+  application   Application @relation(fields: [applicationId], references: [id])
+  
+  stripePaymentId String? @unique
+  stripeCustomerId String?
+  
+  amount        Float
+  currency      String   @default("usd")
+  status        PaymentStatus
+  
+  packageType   PackageType
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// Enums
+enum UserRole {
+  APPLICANT
+  REVIEWER
+  ADMIN
+}
+
+enum PackageType {
+  ESSENTIAL
+  COMPREHENSIVE
+  PREMIUM
+  COMPLETE
+}
+
+enum ApplicationStatus {
+  DRAFT
+  SUBMITTED
+  IN_REVIEW
+  REVIEWED
+  COMPLETED
+}
+
+enum ExperienceType {
+  CLINICAL
+  RESEARCH
+  VOLUNTEER
+  LEADERSHIP
+  TEACHING
+  WORK
+  OTHER
+}
+
+enum DocumentType {
+  PERSONAL_STATEMENT
+  CV
+  TRANSCRIPT
+  LOR
+  OTHER
+}
+
+enum ReviewStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  REVISION_REQUESTED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+enum BlogCategory {
+  APPLICATION_TIPS
+  PERSONAL_STATEMENT
+  INTERVIEW_PREP
+  SPECIALTY_GUIDES
+  TIMELINE_PLANNING
+  PROGRAM_SELECTION
+  MATCH_STRATEGY
+  SUCCESS_STORIES
+}
