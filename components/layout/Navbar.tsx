@@ -36,7 +36,7 @@ export default function Navbar() {
                   priority
                 />
               </div>
-              <span className="font-semibold text-base sm:text-lg text-black hidden sm:block">MyERAS Reviewer</span>
+              <span className="font-semibold text-base sm:text-lg text-black hidden sm:block">MyERAS Editing</span>
               <span className="font-semibold text-base sm:text-lg text-black sm:hidden">MyERAS</span>
             </Link>
 

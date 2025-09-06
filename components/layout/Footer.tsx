@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">MyERAS Reviewer</h3>
+            <h3 className="font-semibold text-gray-900 mb-4">MyERAS Editing</h3>
             <p className="text-sm text-gray-600">Expert ERAS application review and optimization services.</p>
           </div>
           <div>
@@ -36,7 +36,7 @@ export default function Footer() {
         </div>
         <div className="pt-8 border-t border-gray-100">
           <p className="text-sm text-gray-600 text-center">
-            © 2025 MyERAS Reviewer. All rights reserved. HIPAA Compliant.
+            © 2025 MyERAS Editing. All rights reserved. HIPAA Compliant.
           </p>
         </div>
       </div>

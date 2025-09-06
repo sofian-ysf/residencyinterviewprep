@@ -31,7 +31,7 @@ const getChangeFrequency = (path: string): 'always' | 'hourly' | 'daily' | 'week
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://myerasreviewer.com';
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://www.myerasediting.com';
   
   // Get all blog posts from database
   let blogPosts: MetadataRoute.Sitemap = [];
@@ -328,7 +328,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
 // Additional sitemap for blog posts only (for Google News)
 export async function blogSitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://myerasreviewer.com';
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://www.myerasediting.com';
   
   try {
     const posts = await prisma.blogPost.findMany({
@@ -358,7 +358,7 @@ export async function blogSitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
       news: {
         publication: {
-          name: 'MyERAS Reviewer Blog',
+          name: 'MyERAS Editing Blog',
           language: 'en',
         },
         publicationDate: post.publishedAt.toISOString(),

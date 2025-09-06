@@ -11,24 +11,24 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "MyERAS Reviewer - Expert ERAS Application Review Service",
+  title: "MyERAS Editing - Expert ERAS Application Review Service",
   description: "Professional ERAS application review by physicians who successfully matched. Personal statements, CV optimization, experience descriptions. 95% match rate.",
-  applicationName: "MyERAS Reviewer",
-  metadataBase: new URL('https://myerasreviewer.com'),
+  applicationName: "MyERAS Editing",
+  metadataBase: new URL('https://www.myerasediting.com'),
   
   // Open Graph metadata for social sharing
   openGraph: {
-    title: "MyERAS Reviewer",
+    title: "MyERAS Editing",
     description: "Expert ERAS application review by physicians who successfully matched. Personal statements, CV optimization, letters of recommendation. 95% match rate.",
-    url: "https://myerasreviewer.com",
-    siteName: "MyERAS Reviewer",
+    url: "https://www.myerasediting.com",
+    siteName: "MyERAS Editing",
     determiner: "the",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MyERAS Reviewer Logo",
+        alt: "MyERAS Editing Logo",
       },
     ],
     locale: "en_US",
@@ -38,11 +38,11 @@ export const metadata: Metadata = {
   // Twitter Card metadata
   twitter: {
     card: "summary_large_image",
-    title: "MyERAS Reviewer",
+    title: "MyERAS Editing",
     site: "@myerasreviewer",
     creator: "@myerasreviewer",
     description: "Expert ERAS application review by physicians. Personal statements, CV, letters of recommendation. 95% match rate.",
-    images: ["https://myerasreviewer.com/twitter-image.png"],
+    images: ["https://www.myerasediting.com/twitter-image.png"],
   },
   
   // Icons configuration
@@ -81,17 +81,17 @@ export const metadata: Metadata = {
   themeColor: "#ffffff",
   
   // Additional metadata for branding
-  keywords: ["MyERAS Reviewer", "MyERAS Editing", "ERAS application review", "residency personal statement", "ERAS CV review", "medical residency application", "ERAS experience descriptions", "letters of recommendation review"],
-  authors: [{ name: "MyERAS Reviewer Team", url: "https://myerasreviewer.com/about" }],
-  creator: "MyERAS Reviewer",
-  publisher: "MyERAS Reviewer",
+  keywords: ["MyERAS Editing", "MyERAS Editing", "ERAS application review", "residency personal statement", "ERAS CV review", "medical residency application", "ERAS experience descriptions", "letters of recommendation review"],
+  authors: [{ name: "MyERAS Editing Team", url: "https://www.myerasediting.com/about" }],
+  creator: "MyERAS Editing",
+  publisher: "MyERAS Editing",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   alternates: {
-    canonical: "https://myerasreviewer.com",
+    canonical: "https://www.myerasediting.com",
   },
   
   // Viewport configuration

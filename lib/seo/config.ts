@@ -54,15 +54,15 @@ export const keywords = {
 
 // Base SEO configuration
 export const siteConfig = {
-  name: "MyERAS Reviewer",
+  name: "MyERAS Editing",
   title: "Expert ERAS Application Review Service | Match Into Your Dream Residency",
-  titleTemplate: "%s | MyERAS Reviewer",
+  titleTemplate: "%s | MyERAS Editing",
   description: "Professional ERAS application review by physicians who matched successfully. 95% match rate, 5.2x more interviews. Personal statements, CV optimization, and comprehensive residency application preparation.",
-  url: process.env.NEXT_PUBLIC_URL || "https://myerasreviewer.com",
-  ogImage: "https://myerasreviewer.com/og-image.png",
-  twitterImage: "https://myerasreviewer.com/twitter-image.png",
+  url: process.env.NEXT_PUBLIC_URL || "https://www.myerasediting.com",
+  ogImage: "https://www.myerasediting.com/og-image.png",
+  twitterImage: "https://www.myerasediting.com/twitter-image.png",
   locale: "en_US",
-  author: "MyERAS Reviewer Team",
+  author: "MyERAS Editing Team",
   twitterHandle: "@myerasreviewer",
   themeColor: "#000000",
   backgroundColor: "#ffffff"
@@ -83,7 +83,7 @@ export function generateMetadata(page: {
   tags?: string[];
   noindex?: boolean;
 }): Metadata {
-  const title = `${page.title} | MyERAS Reviewer - ERAS Application Review Service`;
+  const title = `${page.title} | MyERAS Editing - ERAS Application Review Service`;
   const url = `${siteConfig.url}${page.path}`;
   const image = page.image || siteConfig.ogImage;
   
@@ -110,7 +110,7 @@ export function generateMetadata(page: {
           url: image,
           width: 1200,
           height: 630,
-          alt: `${page.title} - MyERAS Reviewer`
+          alt: `${page.title} - MyERAS Editing`
         }
       ],
       locale: siteConfig.locale,
@@ -172,7 +172,7 @@ export function generateMetadata(page: {
       "msapplication-TileColor": "#000000",
       "msapplication-tap-highlight": "no",
       "apple-mobile-web-app-title": "MyERAS",
-      "application-name": "MyERAS Reviewer",
+      "application-name": "MyERAS Editing",
       "msapplication-tooltip": "Expert ERAS Application Review",
       "og:locale:alternate": ["es_ES", "zh_CN", "hi_IN", "ar_AE"],
       "article:publisher": "https://www.facebook.com/myerasreviewer",
@@ -198,7 +198,7 @@ export const pageSEO = {
   },
   
   about: {
-    title: "About MyERAS Reviewer - Physician-Led Review Team",
+    title: "About MyERAS Editing - Physician-Led Review Team",
     description: "Learn about our team of successfully matched physicians helping medical students optimize their ERAS applications. 10,000+ applications reviewed with 95% match rate.",
     keywords: ["about ERAS reviewer", "physician application reviewers", "medical residency consultants", "ERAS experts"]
   },
