@@ -378,7 +378,7 @@ export const courseSchema = {
 
 // Helper function to generate all schemas for a page
 export const generatePageSchemas = (pageType: string, data?: any) => {
-  const schemas = [organizationSchema, websiteSchema];
+  const schemas: any[] = [organizationSchema, websiteSchema];
   
   switch (pageType) {
     case 'home':

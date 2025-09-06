@@ -69,7 +69,7 @@ export async function GET() {
       <dc:creator>${escapeXml(post.author || 'MyERAS Reviewer Team')}</dc:creator>
       <pubDate>${post.publishedAt.toUTCString()}</pubDate>
       <category>${escapeXml(post.category || 'ERAS Tips')}</category>
-      ${post.tags?.map(tag => `<category>${escapeXml(tag)}</category>`).join('') || ''}
+      ${post.tags?.split(',').map(tag => `<category>${escapeXml(tag.trim())}</category>`).join('') || ''}
       <media:content url="${baseUrl}/api/og?title=${encodeURIComponent(post.title)}" medium="image" />
       <media:thumbnail url="${baseUrl}/api/og?title=${encodeURIComponent(post.title)}" />
     </item>`).join('')}
@@ -138,7 +138,7 @@ export async function generateAtomFeed() {
     <author>
       <name>${escapeXml(post.author || 'MyERAS Reviewer Team')}</name>
     </author>
-    ${post.tags?.map(tag => `<category term="${escapeXml(tag)}" />`).join('') || ''}
+    ${post.tags?.split(',').map(tag => `<category term="${escapeXml(tag.trim())}" />`).join('') || ''}
   </entry>`).join('')}
 </feed>`;
 

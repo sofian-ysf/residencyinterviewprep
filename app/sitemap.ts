@@ -369,7 +369,7 @@ export async function blogSitemap(): Promise<MetadataRoute.Sitemap> {
         },
         publicationDate: post.publishedAt.toISOString(),
         title: post.title,
-        keywords: post.tags?.join(', ') || '',
+        keywords: post.tags || '',
       },
     }));
   } catch (error) {
