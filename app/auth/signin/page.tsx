@@ -49,17 +49,17 @@ export default function SignIn() {
         <div className="flex-1 flex items-center justify-center px-6 py-12">
           <div className="w-full max-w-md">
             <div className="mb-10">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl font-bold text-black mb-2">
                 Welcome back
               </h1>
-              <p className="text-gray-600">
+              <p className="text-black">
                 Sign in to continue your MyERAS Review
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
                   Email address
                 </label>
                 <input
@@ -67,7 +67,7 @@ export default function SignIn() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
                   placeholder="you@example.com"
                   required
                 />
@@ -75,10 +75,10 @@ export default function SignIn() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="password" className="block text-sm font-medium text-black">
                     Password
                   </label>
-                  <Link href="/auth/reset-password" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                  <Link href="/auth/reset-password" className="text-sm text-black hover:text-gray-900 transition-colors">
                     Forgot password?
                   </Link>
                 </div>
@@ -87,7 +87,7 @@ export default function SignIn() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
                   placeholder="Enter your password"
                   required
                 />
@@ -101,7 +101,7 @@ export default function SignIn() {
 
               <Button 
                 type="submit" 
-                className="w-full bg-[#f3f4f6] hover:bg-gray-800 text-white py-3 rounded-lg font-medium cursor-pointer transition-colors"
+                className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium cursor-pointer transition-colors"
                 disabled={loading}
               >
                 {loading ? (
@@ -120,13 +120,13 @@ export default function SignIn() {
                 <span className="w-full border-t border-gray-200" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-gray-500">Or continue with</span>
+                <span className="bg-white px-2 text-black">Or continue with</span>
               </div>
             </div>
 
             <Button
               variant="outline"
-              className="w-full border-gray-200 hover:bg-gray-50 py-3 rounded-lg font-medium cursor-pointer transition-colors"
+              className="w-full border-gray-200 hover:bg-gray-50 py-3 rounded-lg font-medium cursor-pointer transition-colors text-black"
               onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
             >
               <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
@@ -150,9 +150,9 @@ export default function SignIn() {
               Continue with Google
             </Button>
 
-            <p className="mt-8 text-center text-sm text-gray-600">
+            <p className="mt-8 text-center text-sm text-black">
               Don't have an account?{" "}
-              <Link href="/auth/signup" className="font-medium text-gray-900 hover:underline">
+              <Link href="/auth/signup" className="font-medium text-black hover:underline">
                 Sign up
               </Link>
             </p>
@@ -160,7 +160,7 @@ export default function SignIn() {
         </div>
 
         {/* Right side - Feature highlight */}
-        <div className="hidden lg:flex flex-1 bg-[#f3f4f6] text-gray-900 items-center justify-center px-12">
+        <div className="hidden lg:flex flex-1 bg-[#f3f4f6] text-black items-center justify-center px-12">
           <div className="max-w-md">
             <h2 className="text-3xl font-bold mb-6">
               Join 10,000+ successful applicants
@@ -170,7 +170,7 @@ export default function SignIn() {
 <div className="w-6 h-6 rounded-full bg-gray-800/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-xs">✓</span>
                 </div>
-<p className="text-gray-600">
+<p className="text-black">
                   85% match rate - 3x the national average
                 </p>
               </div>
@@ -178,7 +178,7 @@ export default function SignIn() {
 <div className="w-6 h-6 rounded-full bg-gray-800/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-xs">✓</span>
                 </div>
-<p className="text-gray-600">
+<p className="text-black">
                   Expert reviewers from admission committees
                 </p>
               </div>
@@ -186,18 +186,18 @@ export default function SignIn() {
 <div className="w-6 h-6 rounded-full bg-gray-800/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-xs">✓</span>
                 </div>
-<p className="text-gray-600">
+<p className="text-black">
                   48-hour turnaround guaranteed
                 </p>
               </div>
             </div>
             
 <div className="mt-10 p-6 bg-white rounded-xl shadow-sm border border-gray-200">
-<p className="text-sm text-gray-500 mb-2">Recent success</p>
+<p className="text-sm text-black mb-2">Recent success</p>
               <p className="font-medium">
                 "Matched Orthopedics at Stanford after being rejected everywhere last year."
               </p>
-<p className="text-sm text-gray-500 mt-2">- Kumar P., IMG</p>
+<p className="text-sm text-black mt-2">- Kumar P., IMG</p>
             </div>
           </div>
         </div>

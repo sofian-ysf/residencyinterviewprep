@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -82,7 +82,6 @@ model Application {
   
   // Impactful Experiences
   impactfulExperience String?
-  
   documents     Document[]
   experiences   Experience[]
   reviews       Review[]
@@ -108,7 +107,7 @@ model Experience {
   charCount     Int
   
   isMostMeaningful Boolean @default(false)
-  meaningfulDescription String? // 300 characters if most meaningful
+  meaningfulDescription String?  // 300 characters if most meaningful
   
   experienceType ExperienceType
   
@@ -127,8 +126,7 @@ model Document {
   fileType      DocumentType
   version       Int      @default(1)
   
-  content       String?
-  
+  content       String?    
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }

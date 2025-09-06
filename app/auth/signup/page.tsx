@@ -157,10 +157,10 @@ export default function SignUp() {
         <div className="flex-1 flex items-center justify-center px-6 py-12">
           <div className="w-full max-w-md">
             <div className="mb-10">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl font-bold text-black mb-2">
                 Create your account
               </h1>
-              <p className="text-gray-600">
+              <p className="text-black">
                 Join thousands getting expert MyERAS Reviews
               </p>
             </div>
@@ -168,7 +168,7 @@ export default function SignUp() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-black mb-2">
                     Full name
                   </label>
                   <input
@@ -177,14 +177,14 @@ export default function SignUp() {
                     type="text"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
                     placeholder="John Doe"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-black mb-2">
                     Email
                   </label>
                   <input
@@ -193,7 +193,7 @@ export default function SignUp() {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
                     placeholder="you@example.com"
                     required
                   />
@@ -201,7 +201,7 @@ export default function SignUp() {
               </div>
               
               <div>
-                <label htmlFor="medicalSchool" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="medicalSchool" className="block text-sm font-medium text-black mb-2">
                   Medical school
                 </label>
                 <input
@@ -218,7 +218,7 @@ export default function SignUp() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="graduationYear" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="graduationYear" className="block text-sm font-medium text-black mb-2">
                     Graduation year
                   </label>
                   <select
@@ -226,10 +226,10 @@ export default function SignUp() {
                     name="graduationYear"
                     value={formData.graduationYear}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors cursor-pointer"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors cursor-pointer placeholder:text-gray-500"
                     required
                   >
-                    <option value="">Select year</option>
+                    <option value="" className="text-gray-500">Select year</option>
                     {years.map((year) => (
                       <option key={year} value={year}>
                         {year}
@@ -239,7 +239,7 @@ export default function SignUp() {
                 </div>
                 
                 <div>
-                  <label htmlFor="specialty" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="specialty" className="block text-sm font-medium text-black mb-2">
                     Specialty interest
                   </label>
                   <select
@@ -247,10 +247,10 @@ export default function SignUp() {
                     name="specialty"
                     value={formData.specialty}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors cursor-pointer"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors cursor-pointer placeholder:text-gray-500"
                     required
                   >
-                    <option value="">Select specialty</option>
+                    <option value="" className="text-gray-500">Select specialty</option>
                     {specialties.map((spec) => (
                       <option key={spec} value={spec}>
                         {spec}
@@ -262,7 +262,7 @@ export default function SignUp() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="password" className="block text-sm font-medium text-black mb-2">
                     Password
                   </label>
                   <input
@@ -271,14 +271,14 @@ export default function SignUp() {
                     type="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
                     placeholder="Min. 8 characters"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-black mb-2">
                     Confirm password
                   </label>
                   <input
@@ -287,7 +287,7 @@ export default function SignUp() {
                     type="password"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
                     placeholder="Repeat password"
                     required
                   />
@@ -303,7 +303,7 @@ export default function SignUp() {
               <div className="pt-2">
                 <Button 
                   type="submit" 
-                  className="w-full bg-[#f3f4f6] hover:bg-gray-800 text-white py-3 rounded-lg font-medium cursor-pointer transition-colors"
+                  className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-medium cursor-pointer transition-colors"
                   disabled={loading}
                 >
                   {loading ? (
@@ -325,9 +325,9 @@ export default function SignUp() {
               </p>
             </form>
 
-            <p className="mt-8 text-center text-sm text-gray-600">
+            <p className="mt-8 text-center text-sm text-black">
               Already have an account?{" "}
-              <Link href="/auth/signin" className="font-medium text-gray-900 hover:underline">
+              <Link href="/auth/signin" className="font-medium text-black hover:underline">
                 Sign in
               </Link>
             </p>

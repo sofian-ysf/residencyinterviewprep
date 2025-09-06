@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { sendNewUserNotification } from "@/lib/discord";
 
 export async function POST(request: NextRequest) {
   try {
@@ -44,6 +45,13 @@ export async function POST(request: NextRequest) {
 
     // Remove password from response
     const { password: _, ...userWithoutPassword } = user;
+
+    // Send Discord notification
+    await sendNewUserNotification({
+      email: user.email,
+      name: user.name || undefined,
+      provider: 'Email/Password',
+    });
 
     return NextResponse.json(
       {

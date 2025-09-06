@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import { sendNewUserNotification } from "@/lib/discord";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -58,6 +59,16 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  events: {
+    async createUser({ user }) {
+      // Send Discord notification when a new user is created (OAuth signup)
+      await sendNewUserNotification({
+        email: user.email || '',
+        name: user.name || undefined,
+        provider: 'OAuth (Google)',
+      });
+    },
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
