@@ -522,7 +522,7 @@ export default function SpecialtyStrategyGuide() {
                 </select>
               </div>
 
-              {selectedSpecialty && specialtyRequirements[selectedSpecialty] && (
+              {selectedSpecialty && specialtyRequirements[selectedSpecialty as keyof typeof specialtyRequirements] && (
                 <div className="space-y-6">
                   <div className="bg-white rounded-xl border border-gray-200 p-6">
                     <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -530,7 +530,7 @@ export default function SpecialtyStrategyGuide() {
                       Required Elements
                     </h3>
                     <ul className="space-y-2">
-                      {specialtyRequirements[selectedSpecialty].required.map((req, idx) => (
+                      {specialtyRequirements[selectedSpecialty as keyof typeof specialtyRequirements].required.map((req, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <span className="text-green-600 mt-0.5">•</span>
                           <span className="text-sm text-gray-700">{req}</span>
@@ -545,7 +545,7 @@ export default function SpecialtyStrategyGuide() {
                       Preferred Qualifications
                     </h3>
                     <ul className="space-y-2">
-                      {specialtyRequirements[selectedSpecialty].preferred.map((pref, idx) => (
+                      {specialtyRequirements[selectedSpecialty as keyof typeof specialtyRequirements].preferred.map((pref, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <span className="text-blue-600 mt-0.5">•</span>
                           <span className="text-sm text-gray-700">{pref}</span>
@@ -560,7 +560,7 @@ export default function SpecialtyStrategyGuide() {
                       Red Flags to Avoid
                     </h3>
                     <ul className="space-y-2">
-                      {specialtyRequirements[selectedSpecialty].redFlags.map((flag, idx) => (
+                      {specialtyRequirements[selectedSpecialty as keyof typeof specialtyRequirements].redFlags.map((flag, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <span className="text-red-600 mt-0.5">•</span>
                           <span className="text-sm text-gray-700">{flag}</span>
@@ -572,7 +572,7 @@ export default function SpecialtyStrategyGuide() {
                   <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
                     <h3 className="font-semibold text-gray-900 mb-2">Unique Considerations</h3>
                     <p className="text-sm text-gray-700">
-                      {specialtyRequirements[selectedSpecialty].uniqueConsiderations}
+                      {specialtyRequirements[selectedSpecialty as keyof typeof specialtyRequirements].uniqueConsiderations}
                     </p>
                   </div>
                 </div>
