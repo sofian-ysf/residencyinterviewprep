@@ -94,7 +94,7 @@ export default function LettersPage() {
     },
     {
       flag: "Wrong Specialty Focus",
-      example: "Would make a great internist" (for surgery applicant)",
+      example: "Would make a great internist (for surgery applicant)",
       issue: "Suggests lack of commitment to specialty",
       fix: "Brief writers on your specialty choice and reasons"
     },
