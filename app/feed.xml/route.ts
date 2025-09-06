@@ -11,7 +11,7 @@ function escapeXml(unsafe: string): string {
 }
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://myerasreviewer.com';
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://www.myerasediting.com';
   
   try {
     const posts = await prisma.blogPost.findMany({
@@ -108,7 +108,7 @@ export async function GET() {
 
 // Also export for different feed formats
 export async function generateAtomFeed() {
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://myerasreviewer.com';
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://www.myerasediting.com';
   
   try {
     const posts = await prisma.blogPost.findMany({

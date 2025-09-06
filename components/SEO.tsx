@@ -21,7 +21,7 @@ export default function SEO({
   noindex = false,
   children
 }: SEOProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://myerasreviewer.com';
+  const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://www.myerasediting.com';
   const fullImage = image.startsWith('http') ? image : `${baseUrl}${image}`;
   
   return (
