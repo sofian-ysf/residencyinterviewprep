@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
@@ -64,7 +65,19 @@ export default function SignUp() {
       if (!response.ok) {
         setError(data.message || "Registration failed");
       } else {
-        router.push("/auth/signin?registered=true");
+        // Automatically sign in the user after successful registration
+        const signInResponse = await signIn("credentials", {
+          email: formData.email,
+          password: formData.password,
+          redirect: false,
+        });
+
+        if (signInResponse?.error) {
+          setError("Registration successful but sign-in failed. Please sign in manually.");
+          router.push("/auth/signin?registered=true");
+        } else {
+          router.push("/dashboard");
+        }
       }
     } catch (error) {
       setError("An error occurred. Please try again.");
