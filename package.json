@@ -1,6 +1,8 @@
 {
-  "name": "eras-reviewer",
+  "name": "myeras-reviewer",
+  "displayName": "MyERAS Reviewer",
   "version": "0.1.0",
+  "description": "Expert ERAS application review service by physicians who successfully matched",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",

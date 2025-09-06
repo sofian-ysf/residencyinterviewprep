@@ -12,14 +12,17 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "MyERAS Reviewer - Expert ERAS Application Review Service",
-  description: "Professional ERAS application review and optimization service to help you match into your dream residency program",
+  description: "Professional ERAS application review by physicians who successfully matched. Personal statements, CV optimization, experience descriptions. 95% match rate.",
+  applicationName: "MyERAS Reviewer",
+  metadataBase: new URL('https://myerasreviewer.com'),
   
   // Open Graph metadata for social sharing
   openGraph: {
-    title: "MyERAS Reviewer - Expert ERAS Application Review",
-    description: "Get your ERAS application reviewed by physicians who successfully matched. 95% match rate, 5.2x more interviews.",
+    title: "MyERAS Reviewer",
+    description: "Expert ERAS application review by physicians who successfully matched. Personal statements, CV optimization, letters of recommendation. 95% match rate.",
     url: "https://myerasreviewer.com",
     siteName: "MyERAS Reviewer",
+    determiner: "the",
     images: [
       {
         url: "/og-image.png",
@@ -35,9 +38,11 @@ export const metadata: Metadata = {
   // Twitter Card metadata
   twitter: {
     card: "summary_large_image",
-    title: "MyERAS Reviewer - Expert ERAS Application Review",
-    description: "Get your ERAS application reviewed by physicians who successfully matched. 95% match rate.",
-    images: ["/twitter-image.png"],
+    title: "MyERAS Reviewer",
+    site: "@myerasreviewer",
+    creator: "@myerasreviewer",
+    description: "Expert ERAS application review by physicians. Personal statements, CV, letters of recommendation. 95% match rate.",
+    images: ["https://myerasreviewer.com/twitter-image.png"],
   },
   
   // Icons configuration
@@ -75,11 +80,19 @@ export const metadata: Metadata = {
   // Theme color
   themeColor: "#ffffff",
   
-  // Additional metadata
-  keywords: ["ERAS", "residency application", "medical school", "match", "personal statement", "USMLE", "medical students"],
-  authors: [{ name: "MyERAS Reviewer Team" }],
+  // Additional metadata for branding
+  keywords: ["MyERAS Reviewer", "MyERAS Editing", "ERAS application review", "residency personal statement", "ERAS CV review", "medical residency application", "ERAS experience descriptions", "letters of recommendation review"],
+  authors: [{ name: "MyERAS Reviewer Team", url: "https://myerasreviewer.com/about" }],
   creator: "MyERAS Reviewer",
   publisher: "MyERAS Reviewer",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "https://myerasreviewer.com",
+  },
   
   // Viewport configuration
   viewport: {

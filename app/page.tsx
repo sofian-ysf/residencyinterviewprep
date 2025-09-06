@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { CheckCircle, Star, Shield, Clock, Users, Award, AlertTriangle, DollarSign, XCircle, ArrowRight, Target, Trophy, ChevronRight, Minus } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SitelinksSchema from "@/components/SitelinksSchema";
 import { useState } from "react";
 
 const packages = [
@@ -124,6 +125,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SitelinksSchema />
       <Navbar />
 
       {/* Hero Section */}

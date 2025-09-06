@@ -158,31 +158,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     images: [`${baseUrl}/og-guide-${guide}.png`],
   }));
 
-  // Service/feature pages
+  // Service/feature pages - Updated with correct URLs
   const servicePages: MetadataRoute.Sitemap = [
     {
-      url: `${baseUrl}/services/personal-statement-review`,
+      url: `${baseUrl}/services/personal-statement`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.85,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
-      url: `${baseUrl}/services/cv-review`,
+      url: `${baseUrl}/services/experiences`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.85,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
-      url: `${baseUrl}/services/complete-application-review`,
+      url: `${baseUrl}/services/letters`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/services/interview-coaching`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
   ];
 

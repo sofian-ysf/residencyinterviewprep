@@ -177,7 +177,7 @@ export default function SignUp() {
                     type="text"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-400"
                     placeholder="John Doe"
                     required
                   />
@@ -193,7 +193,7 @@ export default function SignUp() {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-400"
                     placeholder="you@example.com"
                     required
                   />
@@ -210,7 +210,7 @@ export default function SignUp() {
                   type="text"
                   value={formData.medicalSchool}
                   onChange={handleChange}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-400"
                   placeholder="Harvard Medical School"
                   required
                 />
@@ -226,10 +226,10 @@ export default function SignUp() {
                     name="graduationYear"
                     value={formData.graduationYear}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors cursor-pointer placeholder:text-gray-500"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors cursor-pointer text-gray-900"
                     required
                   >
-                    <option value="" className="text-gray-500">Select year</option>
+                    <option value="" disabled className="text-gray-400">Select year</option>
                     {years.map((year) => (
                       <option key={year} value={year}>
                         {year}
@@ -247,10 +247,10 @@ export default function SignUp() {
                     name="specialty"
                     value={formData.specialty}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors cursor-pointer placeholder:text-gray-500"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors cursor-pointer text-gray-900"
                     required
                   >
-                    <option value="" className="text-gray-500">Select specialty</option>
+                    <option value="" disabled className="text-gray-400">Select specialty</option>
                     {specialties.map((spec) => (
                       <option key={spec} value={spec}>
                         {spec}
@@ -271,7 +271,7 @@ export default function SignUp() {
                     type="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-400"
                     placeholder="Min. 8 characters"
                     required
                   />
@@ -287,7 +287,7 @@ export default function SignUp() {
                     type="password"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-700 placeholder:font-medium"
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-colors placeholder:text-gray-400"
                     placeholder="Repeat password"
                     required
                   />
