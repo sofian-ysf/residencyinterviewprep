@@ -77,9 +77,10 @@ const getCategoryLabel = (category: string) => {
 export default async function BlogPage({
   searchParams,
 }: {
-  searchParams: { category?: string }
+  searchParams: Promise<{ category?: string }>
 }) {
-  const posts = await getBlogPosts(searchParams.category);
+  const params = await searchParams;
+  const posts = await getBlogPosts(params.category);
   const featuredPosts = await getFeaturedPosts();
   
   return (
@@ -102,9 +103,9 @@ export default async function BlogPage({
           <div className="mt-10 flex flex-wrap gap-2">
             <Link href="/blog">
               <Button 
-                variant={!searchParams.category ? "default" : "outline"} 
+                variant={!params.category ? "default" : "outline"} 
                 size="sm"
-                className={!searchParams.category 
+                className={!params.category 
                   ? "bg-[#f3f4f6] hover:bg-gray-800 text-white rounded-full px-4 cursor-pointer" 
                   : "border-gray-200 hover:bg-gray-50 rounded-full px-4 cursor-pointer"
                 }
@@ -115,9 +116,9 @@ export default async function BlogPage({
             {categories.map((cat) => (
               <Link key={cat.value} href={`/blog?category=${cat.value}`}>
                 <Button 
-                  variant={searchParams.category === cat.value ? "default" : "outline"} 
+                  variant={params.category === cat.value ? "default" : "outline"} 
                   size="sm"
-                  className={searchParams.category === cat.value
+                  className={params.category === cat.value
                     ? "bg-[#f3f4f6] hover:bg-gray-800 text-white rounded-full px-4 cursor-pointer" 
                     : "border-gray-200 hover:bg-gray-50 rounded-full px-4 cursor-pointer"
                   }
@@ -131,7 +132,7 @@ export default async function BlogPage({
       </section>
       
       {/* Featured Posts */}
-      {featuredPosts.length > 0 && !searchParams.category && (
+      {featuredPosts.length > 0 && !params.category && (
         <section className="max-w-7xl mx-auto px-6 py-16">
           <div className="flex items-center mb-8">
             <TrendingUp className="h-5 w-5 text-gray-600 mr-2" />
@@ -192,8 +193,8 @@ export default async function BlogPage({
       {/* All Posts */}
       <section className="max-w-7xl mx-auto px-6 py-16">
         <h2 className="text-2xl font-bold text-gray-900 mb-8">
-          {searchParams.category 
-            ? `${getCategoryLabel(searchParams.category)} Articles` 
+          {params.category 
+            ? `${getCategoryLabel(params.category)} Articles` 
             : 'Latest Articles'}
         </h2>
         

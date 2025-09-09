@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { prisma } from './prisma';
 import slugify from 'slugify';
+import { getUniqueRandomTopic, getTopicForTimeOfDay } from './blog-topics';
 
 const getAnthropicClient = () => {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -12,105 +13,23 @@ const getAnthropicClient = () => {
   });
 };
 
-const blogTopics = [
-  {
-    category: 'APPLICATION_TIPS',
-    topics: [
-      'How to Write Compelling ERAS Activity Descriptions',
-      'Common ERAS Application Mistakes to Avoid',
-      'Maximizing Your 750 Character Limit',
-      'How to Choose Your Most Meaningful Experiences',
-      'Tips for International Medical Graduates',
-    ],
-    icon: 'application-tips',
-  },
-  {
-    category: 'PERSONAL_STATEMENT',
-    topics: [
-      'Personal Statement Opening Lines That Work',
-      'How to Show Not Tell in Your Personal Statement',
-      'Connecting Your Story to Your Specialty Choice',
-      'Personal Statement Red Flags to Avoid',
-      'The Perfect Personal Statement Structure',
-    ],
-    icon: 'personal-statement',
-  },
-  {
-    category: 'INTERVIEW_PREP',
-    topics: [
-      'Virtual Interview Best Practices',
-      'Common Residency Interview Questions and Answers',
-      'How to Prepare for MMI Interviews',
-      'Post-Interview Thank You Notes',
-      'Interview Day Etiquette Tips',
-    ],
-    icon: 'interview-prep',
-  },
-  {
-    category: 'SPECIALTY_GUIDES',
-    topics: [
-      'Matching into Competitive Specialties',
-      'Internal Medicine vs Family Medicine',
-      'Surgery Residency Application Guide',
-      'Pediatrics Application Requirements',
-      'Emergency Medicine Match Statistics',
-    ],
-    icon: 'specialty-guides',
-  },
-  {
-    category: 'TIMELINE_PLANNING',
-    topics: [
-      'Month-by-Month ERAS Timeline',
-      'When to Take Step 2 CK',
-      'Letter of Recommendation Timeline',
-      'Away Rotation Planning Guide',
-      'ERAS Submission Strategy',
-    ],
-    icon: 'timeline-planning',
-  },
-  {
-    category: 'PROGRAM_SELECTION',
-    topics: [
-      'How Many Programs Should You Apply To',
-      'Using Program Signals Effectively',
-      'Geographic Preferences Strategy',
-      'Community vs Academic Programs',
-      'Creating Your Program List',
-    ],
-    icon: 'program-selection',
-  },
-  {
-    category: 'MATCH_STRATEGY',
-    topics: [
-      'Understanding the NRMP Algorithm',
-      'Couples Match Strategy Guide',
-      'SOAP Preparation Tips',
-      'Rank List Best Practices',
-      'Match Statistics Analysis',
-    ],
-    icon: 'match-strategy',
-  },
-  {
-    category: 'SUCCESS_STORIES',
-    topics: [
-      'From Low Step Scores to Top Program Match',
-      'IMG Success Story: Matching into Surgery',
-      'Reapplicant Success Strategies',
-      'Non-Traditional Path to Residency',
-      'Couples Match Success Story',
-    ],
-    icon: 'success-stories',
-  },
-];
+// SEO tracking
+let lastPublishedHour = new Date().getHours();
 
 export async function generateBlogPost() {
   try {
     // Get Anthropic client
     const anthropic = getAnthropicClient();
     
-    // Select a random category and topic
-    const categoryData = blogTopics[Math.floor(Math.random() * blogTopics.length)];
-    const topic = categoryData.topics[Math.floor(Math.random() * categoryData.topics.length)];
+    // Select topic based on time of day for better engagement
+    const currentHour = new Date().getHours();
+    const topicData = getTopicForTimeOfDay(currentHour) || getUniqueRandomTopic();
+    
+    if (!topicData) {
+      throw new Error('No available topics to generate blog post');
+    }
+    
+    const { topic, category: categoryName, icon } = topicData;
     
     // Generate content using Anthropic API
     const response = await anthropic.messages.create({
@@ -120,28 +39,47 @@ export async function generateBlogPost() {
       messages: [
         {
           role: 'user',
-          content: `You are an expert medical educator and residency application advisor. Write a comprehensive, helpful blog post about: "${topic}"
+          content: `You are an expert medical educator and residency application advisor with deep knowledge of SEO and content marketing. Write a comprehensive, SEO-optimized blog post about: "${topic}"
 
 The blog post should be targeted at medical students applying for residency through ERAS.
 
-Please provide the response in JSON format with the following structure:
+IMPORTANT SEO REQUIREMENTS:
+- Include the main keyword "${topic}" in the first paragraph
+- Use related keywords naturally throughout the content
+- Include long-tail keyword variations
+- Optimize for featured snippets with clear, concise answers
+- Include current year (2025) where relevant
+- Target specific search intents
+
+IMPORTANT: Return ONLY a valid JSON object (not markdown code blocks) with this exact structure:
 {
-  "content": "HTML content of the main article",
-  "metaDescription": "A 150-160 character SEO description",
+  "content": "HTML content of the main article (2000-2500 words)",
+  "metaDescription": "A 150-160 character SEO description including the main keyword",
   "faqSection": [
     {
       "question": "Frequently asked question",
       "answer": "Detailed answer"
     }
+  ],
+  "relatedKeywords": ["keyword1", "keyword2", "keyword3"],
+  "internalLinks": [
+    {
+      "text": "anchor text",
+      "url": "/blog/suggested-related-article-slug"
+    }
   ]
 }
 
+Do not include any text before or after the JSON object. The response should start with { and end with }
+
 For the main content:
-1. Start with an engaging introduction (2-3 paragraphs)
-2. Include 3-5 main sections with clear subheadings
-3. Use bullet points and numbered lists where appropriate
-4. Include specific, actionable advice
-5. End with a conclusion that summarizes key points
+1. Start with an engaging introduction (2-3 paragraphs) that includes the main keyword
+2. Include 5-7 main sections with clear, keyword-rich subheadings
+3. Use bullet points and numbered lists for better readability and featured snippets
+4. Include specific, actionable advice with current statistics and data
+5. Add a "Quick Answer" section near the beginning for featured snippet optimization
+6. Include tables or comparison charts where relevant
+7. End with a conclusion that summarizes key points and includes a call-to-action
 
 Write the content in HTML format with proper tags:
 - Use <h2> for main section headings
@@ -152,7 +90,9 @@ Write the content in HTML format with proper tags:
 - Use <strong> for emphasis
 - Use <blockquote> for important quotes or tips
 
-Include 3-5 relevant FAQs that address common questions about the topic.
+Include 5-8 relevant FAQs that address common "People Also Ask" questions about the topic.
+Include 3-5 related keywords that the article targets.
+Suggest 2-3 internal links to related articles.
 
 Make the content informative, practical, and engaging. Include specific examples and real scenarios that medical students face during the residency application process.`
         }
@@ -161,21 +101,69 @@ Make the content informative, practical, and engaging. Include specific examples
     
     const responseText = response.content[0].type === 'text' ? response.content[0].text : '';
     
+    // Debug: Log first 200 chars of response
+    console.log('AI Response preview:', responseText.substring(0, 200));
+    
     let blogData;
     let content;
     let metaDescription;
     let faqSection;
+    let relatedKeywords = [];
+    let internalLinks = [];
     
     try {
+      // Parse the JSON response
       blogData = JSON.parse(responseText);
-      content = blogData.content || responseText;
-      metaDescription = blogData.metaDescription || null;
-      faqSection = blogData.faqSection || [];
+      
+      // Check if content is a string or needs further parsing
+      if (typeof blogData.content === 'string') {
+        // Check if the content string is actually JSON
+        if (blogData.content.trim().startsWith('{')) {
+          try {
+            // Content is JSON, parse it again
+            const nestedData = JSON.parse(blogData.content);
+            content = nestedData.content || blogData.content;
+            // Override metadata if available in nested JSON
+            metaDescription = nestedData.metaDescription || blogData.metaDescription || null;
+            faqSection = nestedData.faqSection || blogData.faqSection || [];
+            relatedKeywords = nestedData.relatedKeywords || blogData.relatedKeywords || [];
+            internalLinks = nestedData.internalLinks || blogData.internalLinks || [];
+          } catch (nestedError) {
+            // Content is regular HTML string
+            content = blogData.content;
+            metaDescription = blogData.metaDescription || null;
+            faqSection = blogData.faqSection || [];
+            relatedKeywords = blogData.relatedKeywords || [];
+            internalLinks = blogData.internalLinks || [];
+          }
+        } else {
+          // Content is regular HTML string
+          content = blogData.content;
+          metaDescription = blogData.metaDescription || null;
+          faqSection = blogData.faqSection || [];
+          relatedKeywords = blogData.relatedKeywords || [];
+          internalLinks = blogData.internalLinks || [];
+        }
+      } else {
+        // Content is not a string, something's wrong
+        content = JSON.stringify(blogData.content);
+        metaDescription = blogData.metaDescription || null;
+        faqSection = blogData.faqSection || [];
+        relatedKeywords = blogData.relatedKeywords || [];
+        internalLinks = blogData.internalLinks || [];
+      }
+      
+      // Clean up the content - remove any leading/trailing whitespace
+      content = content.trim();
+      
     } catch (e) {
+      console.error('Failed to parse AI response as JSON:', e);
       // Fallback if response is not JSON - assume it's raw HTML content
       content = responseText;
       metaDescription = null;
       faqSection = [];
+      relatedKeywords = [];
+      internalLinks = [];
     }
     
     // Generate excerpt from meta description or content
@@ -185,8 +173,8 @@ Make the content informative, practical, and engaging. Include specific examples
     const wordCount = content.split(' ').length;
     const readTime = Math.ceil(wordCount / 200);
     
-    // Generate tags based on topic
-    const tags = generateTags(topic, categoryData.category);
+    // Generate comprehensive tags for SEO
+    const tags = generateTags(topic, categoryName, relatedKeywords);
     
     // Create slug
     const slug = slugify(topic, { lower: true, strict: true });
@@ -225,9 +213,9 @@ Make the content informative, practical, and engaging. Include specific examples
         slug,
         excerpt: plainText + (plainText.length === 200 ? '...' : ''),
         content,
-        category: categoryData.category as any,
+        category: categoryName as any,
         tags: tags.join(', '),
-        icon: categoryData.icon,
+        icon: icon,
         readTime,
         featured: Math.random() > 0.8, // 20% chance of being featured
         author: 'MyERAS Reviewer Team',
@@ -238,6 +226,17 @@ Make the content informative, practical, and engaging. Include specific examples
     });
     
     console.log(`Successfully generated blog post: ${topic}`);
+    
+    // Trigger SEO automation pipeline
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        await triggerSEOPipeline(blogPost);
+      } catch (error) {
+        console.error('SEO pipeline error:', error);
+        // Don't fail the blog generation if SEO pipeline fails
+      }
+    }
+    
     return blogPost;
     
   } catch (error) {
@@ -246,7 +245,7 @@ Make the content informative, practical, and engaging. Include specific examples
   }
 }
 
-function generateTags(topic: string, category: string): string[] {
+function generateTags(topic: string, category: string, relatedKeywords: string[] = []): string[] {
   const baseTags = ['ERAS', 'residency', 'medical students', 'match'];
   
   // Add category-specific tags
@@ -272,8 +271,11 @@ function generateTags(topic: string, category: string): string[] {
     .filter(word => word.length > 4 && !['from', 'into', 'your', 'that', 'with'].includes(word));
   tags.push(...topicWords.slice(0, 3));
   
+  // Add related keywords
+  tags.push(...relatedKeywords);
+  
   // Return unique tags
-  return [...new Set(tags)].slice(0, 8);
+  return [...new Set(tags)].slice(0, 12);
 }
 
 // Generate multiple blog posts
@@ -294,4 +296,33 @@ export async function generateMultipleBlogPosts(count: number = 5) {
   }
   
   return results;
+}
+
+// Trigger SEO automation pipeline
+async function triggerSEOPipeline(blogPost: any) {
+  try {
+    // Call the SEO automation endpoint
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/cron/seo-automation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.CRON_SECRET}`,
+      },
+      body: JSON.stringify({
+        blogPostId: blogPost.id,
+        slug: blogPost.slug,
+        title: blogPost.title,
+        url: `${process.env.NEXT_PUBLIC_URL}/blog/${blogPost.slug}`,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`SEO automation failed: ${response.statusText}`);
+    }
+
+    console.log(`SEO pipeline triggered for: ${blogPost.title}`);
+  } catch (error) {
+    console.error('Error triggering SEO pipeline:', error);
+    throw error;
+  }
 }

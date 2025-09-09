@@ -41,3 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 /lib/generated/prisma
+
+# Google Cloud credentials and sensitive files
+indexing-api-key.json
+*.serviceaccount.json
+*-key.json
+scripts/indexing-results-*.json
