@@ -99,171 +99,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Specialty pages for SEO
-  const specialties = [
-    'internal-medicine',
-    'surgery',
-    'pediatrics',
-    'emergency-medicine',
-    'family-medicine',
-    'psychiatry',
-    'anesthesiology',
-    'radiology',
-    'pathology',
-    'ob-gyn',
-    'neurology',
-    'dermatology',
-    'ophthalmology',
-    'orthopedic-surgery',
-    'otolaryngology',
-    'urology',
-    'plastic-surgery',
-    'physical-medicine',
-    'radiation-oncology',
-    'diagnostic-radiology'
-  ];
+  // Remove specialty pages - they don't exist
+  const specialtyPages: MetadataRoute.Sitemap = [];
 
-  const specialtyPages: MetadataRoute.Sitemap = specialties.map((specialty) => ({
-    url: `${baseUrl}/specialties/${specialty}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.85,
-    images: [`${baseUrl}/og-specialty-${specialty}.png`],
-  }));
-
-  // Guide subcategories
-  const guideCategories = [
+  // Only include guide pages that actually exist
+  const existingGuides = [
     'personal-statement',
-    'cv-formatting',
-    'eras-timeline',
-    'interview-preparation',
     'letters-of-recommendation',
-    'program-signals',
-    'supplemental-eras',
-    'img-guide',
-    'couples-match',
-    'research-experience',
-    'clinical-experience',
-    'volunteer-activities',
-    'hobbies-interests',
-    'red-flags',
-    'gap-years'
+    'activity-descriptions',
+    'interview-prep',
+    'program-selection',
+    'specialties'
   ];
 
-  const guidePages: MetadataRoute.Sitemap = guideCategories.map((guide) => ({
+  const guidePages: MetadataRoute.Sitemap = existingGuides.map((guide) => ({
     url: `${baseUrl}/guides/${guide}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.85,
-    images: [`${baseUrl}/og-guide-${guide}.png`],
   }));
 
-  // Service/feature pages - Updated with correct URLs
-  const servicePages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/services/personal-statement`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/services/experiences`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/services/letters`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-  ];
+  // Remove service pages - they don't exist
+  const servicePages: MetadataRoute.Sitemap = [];
 
-  // Blog category pages
-  const blogCategories = [
-    'APPLICATION_TIPS',
-    'PERSONAL_STATEMENT',
-    'INTERVIEW_PREP',
-    'SPECIALTY_GUIDES',
-    'TIMELINE_PLANNING',
-    'PROGRAM_SELECTION',
-    'MATCH_STRATEGY',
-    'SUCCESS_STORIES',
-    'IMG_RESOURCES',
-    'RESEARCH_TIPS',
-    'CLINICAL_EXPERIENCE',
-    'USMLE_SCORES',
-    'RED_FLAGS',
-    'COUPLES_MATCH',
-    'SOAP_GUIDANCE'
-  ];
+  // Remove blog category pages - they don't exist
+  const categoryPages: MetadataRoute.Sitemap = [];
 
-  const categoryPages: MetadataRoute.Sitemap = blogCategories.map((category) => ({
-    url: `${baseUrl}/blog/category/${category.toLowerCase().replace('_', '-')}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.75,
-  }));
+  // Remove location pages - they don't exist
+  const locationPages: MetadataRoute.Sitemap = [];
 
-  // Location-based pages for local SEO
-  const locations = [
-    'new-york',
-    'los-angeles',
-    'chicago',
-    'houston',
-    'philadelphia',
-    'boston',
-    'san-francisco',
-    'washington-dc',
-    'miami',
-    'atlanta'
-  ];
-
-  const locationPages: MetadataRoute.Sitemap = locations.map((location) => ({
-    url: `${baseUrl}/locations/${location}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
-
-  // Informational pages
+  // Only include info pages that exist
   const infoPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/testimonials`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/success-stories`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/resources`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.75,
     },
   ];
 
@@ -283,7 +154,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Legal pages (lowest priority)
+  // Only include legal pages that exist
   const legalPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/privacy`,
@@ -297,32 +168,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
-    {
-      url: `${baseUrl}/cookies`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/disclaimer`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
   ];
 
-  // Combine all sitemaps
+  // Combine only pages that actually exist
   return [
-    ...corePages,
-    ...specialtyPages,
-    ...guidePages,
-    ...servicePages,
-    ...categoryPages,
-    ...blogPosts,
-    ...locationPages,
-    ...infoPages,
-    ...authPages,
-    ...legalPages,
+    ...corePages,      // Home, pricing, guides, timeline, blog
+    ...guidePages,     // 6 guide subpages
+    ...infoPages,      // About page
+    ...authPages,      // Sign in/up pages
+    ...legalPages,     // Privacy, terms
+    ...blogPosts,      // Dynamic blog posts from database
   ];
 }
 

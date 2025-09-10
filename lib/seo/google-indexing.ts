@@ -29,7 +29,7 @@ async function getIndexingClient() {
     
     return google.indexing({
       version: 'v3',
-      auth: authClient,
+      auth: authClient as any,
     });
   } catch (error) {
     console.error('Failed to initialize Google Indexing client:', error);

@@ -105,65 +105,61 @@ Make the content informative, practical, and engaging. Include specific examples
     console.log('AI Response preview:', responseText.substring(0, 200));
     
     let blogData;
-    let content;
-    let metaDescription;
-    let faqSection;
-    let relatedKeywords = [];
-    let internalLinks = [];
+    let content = '';
+    let metaDescription = null;
+    let faqSection = [];
+    let relatedKeywords: string[] = [];
+    let internalLinks: any[] = [];
     
     try {
       // Parse the JSON response
       blogData = JSON.parse(responseText);
       
-      // Check if content is a string or needs further parsing
+      // Extract content properly
       if (typeof blogData.content === 'string') {
-        // Check if the content string is actually JSON
-        if (blogData.content.trim().startsWith('{')) {
+        content = blogData.content;
+        
+        // Make sure content is HTML, not nested JSON
+        if (content.trim().startsWith('{')) {
           try {
-            // Content is JSON, parse it again
-            const nestedData = JSON.parse(blogData.content);
-            content = nestedData.content || blogData.content;
-            // Override metadata if available in nested JSON
-            metaDescription = nestedData.metaDescription || blogData.metaDescription || null;
-            faqSection = nestedData.faqSection || blogData.faqSection || [];
-            relatedKeywords = nestedData.relatedKeywords || blogData.relatedKeywords || [];
-            internalLinks = nestedData.internalLinks || blogData.internalLinks || [];
-          } catch (nestedError) {
-            // Content is regular HTML string
-            content = blogData.content;
-            metaDescription = blogData.metaDescription || null;
-            faqSection = blogData.faqSection || [];
-            relatedKeywords = blogData.relatedKeywords || [];
-            internalLinks = blogData.internalLinks || [];
+            const nestedData = JSON.parse(content);
+            content = nestedData.content || content;
+          } catch (e) {
+            // If parsing fails, assume it's HTML that starts with {
           }
-        } else {
-          // Content is regular HTML string
-          content = blogData.content;
-          metaDescription = blogData.metaDescription || null;
-          faqSection = blogData.faqSection || [];
-          relatedKeywords = blogData.relatedKeywords || [];
-          internalLinks = blogData.internalLinks || [];
         }
       } else {
-        // Content is not a string, something's wrong
-        content = JSON.stringify(blogData.content);
-        metaDescription = blogData.metaDescription || null;
-        faqSection = blogData.faqSection || [];
-        relatedKeywords = blogData.relatedKeywords || [];
-        internalLinks = blogData.internalLinks || [];
+        content = String(blogData.content || '');
       }
       
-      // Clean up the content - remove any leading/trailing whitespace
+      // Extract metadata
+      metaDescription = blogData.metaDescription || null;
+      faqSection = Array.isArray(blogData.faqSection) ? blogData.faqSection : [];
+      relatedKeywords = Array.isArray(blogData.relatedKeywords) ? blogData.relatedKeywords : [];
+      internalLinks = Array.isArray(blogData.internalLinks) ? blogData.internalLinks : [];
+      
+      // Validate content is HTML
+      if (!content.includes('<') || !content.includes('>')) {
+        console.warn('Content does not appear to be HTML, wrapping in paragraph tags');
+        content = `<p>${content}</p>`;
+      }
+      
+      // Clean up the content - ensure no JSON structure remains
       content = content.trim();
       
     } catch (e) {
       console.error('Failed to parse AI response as JSON:', e);
       // Fallback if response is not JSON - assume it's raw HTML content
-      content = responseText;
-      metaDescription = null;
-      faqSection = [];
-      relatedKeywords = [];
-      internalLinks = [];
+      if (responseText.includes('<') && responseText.includes('>')) {
+        content = responseText;
+      } else {
+        content = `<p>${responseText}</p>`;
+      }
+    }
+    
+    // Final validation - ensure we have actual HTML content
+    if (!content || content.trim() === '') {
+      throw new Error('No valid content generated');
     }
     
     // Generate excerpt from meta description or content

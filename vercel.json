@@ -1,28 +1,37 @@
 {
-  "crons": [
+  "redirects": [
     {
-      "path": "/api/cron/blog",
-      "schedule": "0 2 * * *"
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "myerasediting.com"
+        }
+      ],
+      "destination": "https://www.myerasediting.com/$1",
+      "permanent": true
     },
     {
-      "path": "/api/cron/blog",
-      "schedule": "0 6 * * *"
-    },
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "http://www.myerasediting.com"
+        }
+      ],
+      "destination": "https://www.myerasediting.com/$1",
+      "permanent": true
+    }
+  ],
+  "headers": [
     {
-      "path": "/api/cron/blog",
-      "schedule": "0 10 * * *"
-    },
-    {
-      "path": "/api/cron/blog",
-      "schedule": "0 14 * * *"
-    },
-    {
-      "path": "/api/cron/blog",
-      "schedule": "0 18 * * *"
-    },
-    {
-      "path": "/api/cron/blog",
-      "schedule": "0 22 * * *"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        }
+      ]
     }
   ]
 }

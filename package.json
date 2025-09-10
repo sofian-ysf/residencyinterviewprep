@@ -16,6 +16,9 @@
     "index:status": "node scripts/trigger-indexing.js status",
     "index:check": "node scripts/check-indexing-status.js",
     "index:check:quick": "node scripts/check-indexing-status.js --quick",
+    "index:improve": "node scripts/improve-indexing.js",
+    "index:request": "node scripts/request-indexing.js",
+    "index:request:all": "node scripts/request-indexing.js --all",
     "blog:generate": "node scripts/generate-blogs.js 1",
     "blog:generate:bulk": "node scripts/generate-blogs.js 6",
     "blog:seed": "npx prisma db seed"
