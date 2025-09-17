@@ -47,3 +47,4 @@ indexing-api-key.json
 *.serviceaccount.json
 *-key.json
 scripts/indexing-results-*.json
+/uploads
