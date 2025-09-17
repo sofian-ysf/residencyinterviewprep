@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Validate file type
-    if (!ALLOWED_TYPES[file.type]) {
+    if (!ALLOWED_TYPES[file.type as keyof typeof ALLOWED_TYPES]) {
       return NextResponse.json(
         { error: 'Invalid file type. Only PDF, Word documents, and text files are allowed.' },
         { status: 400 }
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
 
     // Generate unique filename
     const timestamp = Date.now();
-    const extension = ALLOWED_TYPES[file.type];
+    const extension = ALLOWED_TYPES[file.type as keyof typeof ALLOWED_TYPES];
     const fileName = `${documentType}_${timestamp}${extension}`;
     const filePath = path.join(uploadDir, fileName);
 
