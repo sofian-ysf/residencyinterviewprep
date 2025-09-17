@@ -38,21 +38,21 @@ export default function CheckoutForm({ amount, planName }: { amount: number; pla
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-gray-50 rounded-lg p-4 mb-6">
-        <div className="flex justify-between items-center">
-          <span className="text-gray-600">Package:</span>
-          <span className="font-semibold">{planName}</span>
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
+        <div className="flex justify-between items-center mb-3">
+          <span className="text-sm font-medium text-gray-600 uppercase tracking-wider">Package</span>
+          <span className="text-lg font-semibold text-gray-900">{planName}</span>
         </div>
-        <div className="flex justify-between items-center mt-2">
-          <span className="text-gray-600">Total:</span>
-          <span className="text-2xl font-bold">${amount}</span>
+        <div className="flex justify-between items-center pt-3 border-t border-blue-100">
+          <span className="text-sm font-medium text-gray-600 uppercase tracking-wider">Total Amount</span>
+          <span className="text-3xl font-bold text-gray-900">${amount}</span>
         </div>
       </div>
 
-      <PaymentElement 
+      <PaymentElement
         options={{
-          layout: 'tabs',
+          layout: 'tabs'
         }}
       />
 

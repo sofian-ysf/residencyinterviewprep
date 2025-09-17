@@ -23,3 +23,39 @@ body {
   color: var(--foreground);
   font-family: var(--font-poppins), 'Poppins', sans-serif;
 }
+
+/* Stripe Payment Element Styling */
+.StripeElement {
+  min-height: 40px;
+}
+
+/* Force card fields to stack properly */
+#payment-element .p-Input,
+#payment-element input {
+  padding: 12px 16px !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  min-height: 48px !important;
+}
+
+/* Ensure proper spacing between fields */
+#payment-element .p-FieldRow {
+  margin-bottom: 16px !important;
+}
+
+/* Card number should be on its own line */
+#payment-element .p-FieldRow--cardNumber {
+  width: 100% !important;
+  margin-bottom: 16px !important;
+}
+
+/* Expiry and CVC side by side */
+#payment-element .p-FieldRow--expiryCvc {
+  display: flex !important;
+  gap: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+#payment-element .p-FieldRow--expiryCvc > div {
+  flex: 1 !important;
+}

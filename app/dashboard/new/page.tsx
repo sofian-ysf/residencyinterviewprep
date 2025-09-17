@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import PaymentModal from "@/components/PaymentModal";
+import PaymentModal from "@/components/payment/PaymentModal";
 import ExperienceModal from "@/components/ExperienceModal";
 import {
   Check,
@@ -40,6 +40,9 @@ export default function NewApplicationPage() {
   const [showExperienceModal, setShowExperienceModal] = useState(false);
   const [editingExperience, setEditingExperience] = useState<any>(null);
   const [additionalDocuments, setAdditionalDocuments] = useState<any[]>([]);
+  const [currentDraftId, setCurrentDraftId] = useState<string | null>(null);
+  const [savingDraft, setSavingDraft] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     checkPaymentStatus();
@@ -242,6 +245,129 @@ export default function NewApplicationPage() {
   const handleDeleteDocument = (id: string) => {
     if (confirm('Are you sure you want to delete this document?')) {
       setAdditionalDocuments(additionalDocuments.filter(doc => doc.id !== id));
+    }
+  };
+
+  const handleSaveDraft = async () => {
+    setSavingDraft(true);
+    try {
+      const response = await fetch('/api/applications/draft', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          applicationId: currentDraftId,
+          packageType: selectedPackage || 'BASIC',
+          personalInfo: {
+            // You might want to add form fields for these
+            firstName: '',
+            lastName: '',
+            email: '',
+            phone: '',
+          },
+          personalStatement: {
+            content: personalStatement,
+            charCount: personalStatement.length,
+          },
+          experiences: experiences,
+          documents: additionalDocuments,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setCurrentDraftId(data.applicationId);
+        alert('Draft saved successfully!');
+      } else {
+        alert('Failed to save draft: ' + data.error);
+      }
+    } catch (error) {
+      console.error('Error saving draft:', error);
+      alert('Failed to save draft');
+    } finally {
+      setSavingDraft(false);
+    }
+  };
+
+  const handleSubmitForReview = async () => {
+    // First save as draft to ensure we have an applicationId
+    if (!currentDraftId) {
+      setSavingDraft(true);
+      try {
+        const draftResponse = await fetch('/api/applications/draft', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            packageType: selectedPackage || 'BASIC',
+            personalInfo: {
+              firstName: '',
+              lastName: '',
+              email: '',
+              phone: '',
+            },
+            personalStatement: {
+              content: personalStatement,
+              charCount: personalStatement.length,
+            },
+            experiences: experiences,
+            documents: additionalDocuments,
+          }),
+        });
+
+        const draftData = await draftResponse.json();
+        if (draftResponse.ok) {
+          setCurrentDraftId(draftData.applicationId);
+          // Now submit the saved draft
+          await submitApplication(draftData.applicationId);
+        } else {
+          alert('Failed to save application: ' + draftData.error);
+          setSavingDraft(false);
+          return;
+        }
+      } catch (error) {
+        console.error('Error saving draft:', error);
+        alert('Failed to save application');
+        setSavingDraft(false);
+        return;
+      }
+    } else {
+      // Application already has an ID, just submit it
+      await submitApplication(currentDraftId);
+    }
+  };
+
+  const submitApplication = async (appId: string) => {
+    setSubmitting(true);
+    try {
+      const response = await fetch('/api/applications/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          applicationId: appId,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Application submitted for review successfully!');
+        // Redirect to applications page
+        router.push('/dashboard/applications');
+      } else {
+        alert('Failed to submit application: ' + data.error);
+      }
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      alert('Failed to submit application');
+    } finally {
+      setSubmitting(false);
+      setSavingDraft(false);
     }
   };
 
@@ -622,12 +748,21 @@ export default function NewApplicationPage() {
 
         {/* Action Buttons */}
         <div className="flex justify-between gap-4">
-          <Button variant="outline" className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            className="flex items-center gap-2"
+            onClick={handleSaveDraft}
+            disabled={savingDraft}
+          >
             <Save className="h-4 w-4" />
-            Save Draft
+            {savingDraft ? 'Saving...' : 'Save Draft'}
           </Button>
-          <Button className="bg-black hover:bg-gray-800 flex items-center gap-2">
-            Submit for Review
+          <Button
+            className="bg-black hover:bg-gray-800 flex items-center gap-2"
+            onClick={handleSubmitForReview}
+            disabled={submitting || savingDraft}
+          >
+            {submitting ? 'Submitting...' : 'Submit for Review'}
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
@@ -793,10 +928,11 @@ export default function NewApplicationPage() {
       {/* Payment Modal */}
       {getSelectedPackage() && (
         <PaymentModal
+          planId={getSelectedPackage()!.id}
+          planName={getSelectedPackage()!.name}
+          amount={getSelectedPackage()!.price}
           isOpen={showPaymentModal}
           onClose={() => setShowPaymentModal(false)}
-          packageInfo={getSelectedPackage()!}
-          onSuccess={handlePaymentSuccess}
         />
       )}
     </div>

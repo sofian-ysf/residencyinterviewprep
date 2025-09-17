@@ -1,44 +1,68 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  FileText, 
-  Clock, 
-  CheckCircle, 
+import {
+  FileText,
+  Clock,
+  CheckCircle,
   AlertCircle,
   Calendar,
   Eye,
   Download,
   Plus,
-  ChevronDown
+  ChevronDown,
+  Edit
 } from "lucide-react";
 
 export default function ApplicationsPage() {
   const [filter, setFilter] = useState("all");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [applications, setApplications] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Mock data - would come from API/database
-  // Set to empty array to show empty state
-  const applications: any[] = [];
+  useEffect(() => {
+    fetchApplications();
+  }, []);
+
+  const fetchApplications = async () => {
+    try {
+      // Fetch all applications (drafts, in review, completed)
+      const response = await fetch('/api/applications/submit');
+      if (response.ok) {
+        const allApplications = await response.json();
+        setApplications(allApplications);
+      }
+    } catch (error) {
+      console.error('Error fetching applications:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getStatusIcon = (status: string) => {
-    switch (status) {
+    const normalizedStatus = status.toLowerCase().replace('_', '');
+    switch (normalizedStatus) {
       case "completed":
         return <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-green-500" />;
+      case "inreview":
       case "in_review":
         return <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />;
+      case "draft":
+        return <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500" />;
       default:
         return <AlertCircle className="h-4 w-4 sm:h-5 sm:w-5 text-black" />;
     }
   };
 
   const getStatusText = (status: string) => {
-    switch (status) {
+    const normalizedStatus = status.toLowerCase().replace('_', '');
+    switch (normalizedStatus) {
       case "completed":
         return "Completed";
+      case "inreview":
       case "in_review":
         return "In Review";
       case "draft":
@@ -49,9 +73,11 @@ export default function ApplicationsPage() {
   };
 
   const getStatusColor = (status: string) => {
-    switch (status) {
+    const normalizedStatus = status.toLowerCase().replace('_', '');
+    switch (normalizedStatus) {
       case "completed":
         return "text-green-600 bg-green-50";
+      case "inreview":
       case "in_review":
         return "text-yellow-600 bg-yellow-50";
       case "draft":
@@ -63,14 +89,17 @@ export default function ApplicationsPage() {
 
   const filteredApplications = applications.filter(app => {
     if (filter === "all") return true;
-    return app.status === filter;
+    if (filter === "draft") return app.status === "DRAFT";
+    if (filter === "in_review") return app.status === "IN_REVIEW";
+    if (filter === "completed") return app.status === "COMPLETED";
+    return false;
   });
 
   const filterOptions = [
     { value: "all", label: "All", count: applications.length },
-    { value: "draft", label: "Drafts", count: applications.filter(a => a.status === "draft").length },
-    { value: "in_review", label: "In Review", count: applications.filter(a => a.status === "in_review").length },
-    { value: "completed", label: "Completed", count: applications.filter(a => a.status === "completed").length },
+    { value: "draft", label: "Drafts", count: applications.filter(a => a.status === "DRAFT").length },
+    { value: "in_review", label: "In Review", count: applications.filter(a => a.status === "IN_REVIEW").length },
+    { value: "completed", label: "Completed", count: applications.filter(a => a.status === "COMPLETED").length },
   ];
 
   const currentFilter = filterOptions.find(f => f.value === filter);
@@ -140,82 +169,120 @@ export default function ApplicationsPage() {
 
       {/* Applications Grid */}
       <div className="grid gap-4 sm:gap-6">
-        {filteredApplications.map((app) => (
-          <Card key={app.id}>
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center flex-wrap gap-2 sm:gap-3 mb-3">
-                    {getStatusIcon(app.status)}
-                    <h3 className="text-base sm:text-lg font-semibold text-black">{app.package}</h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(app.status)}`}>
-                      {getStatusText(app.status)}
-                    </span>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-4">
-                    <div>
-                      <p className="text-xs sm:text-sm text-black font-medium">Submitted</p>
-                      <p className="text-xs sm:text-sm text-black flex items-center mt-1">
-                        <Calendar className="h-3 w-3 mr-1" />
-                        {app.submittedAt}
-                      </p>
-                    </div>
-                    {app.reviewer && (
-                      <div>
-                        <p className="text-xs sm:text-sm text-black font-medium">Reviewer</p>
-                        <p className="text-xs sm:text-sm text-black mt-1">{app.reviewer}</p>
-                      </div>
-                    )}
-                    <div>
-                      <p className="text-xs sm:text-sm text-black font-medium">Documents</p>
-                      <p className="text-xs sm:text-sm text-black flex items-center mt-1">
-                        <FileText className="h-3 w-3 mr-1" />
-                        {app.documents} files
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs sm:text-sm text-black font-medium">Last Updated</p>
-                      <p className="text-xs sm:text-sm text-black mt-1">{app.lastUpdated}</p>
-                    </div>
-                  </div>
-
-                  {/* Progress Bar */}
-                  <div className="mb-0 sm:mb-4">
-                    <div className="flex justify-between text-xs sm:text-sm mb-1">
-                      <span className="text-black font-medium">Progress</span>
-                      <span className="text-black">{app.progress}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full ${
-                          app.progress === 100 ? 'bg-green-500' : 'bg-blue-600'
-                        }`}
-                        style={{ width: `${app.progress}%` }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Actions - Mobile optimized */}
-                <div className="flex sm:flex-col gap-2 w-full sm:w-auto">
-                  <Link href={`/dashboard/applications/${app.id}`} className="flex-1 sm:flex-none">
-                    <Button variant="outline" size="sm" className="w-full">
-                      <Eye className="h-4 w-4 mr-2" />
-                      View
-                    </Button>
-                  </Link>
-                  {app.status === "completed" && (
-                    <Button variant="outline" size="sm" className="flex-1 sm:flex-none sm:w-full">
-                      <Download className="h-4 w-4 mr-2" />
-                      Download
-                    </Button>
-                  )}
-                </div>
-              </div>
+        {loading ? (
+          <Card>
+            <CardContent className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto"></div>
+              <p className="mt-4 text-sm text-gray-600">Loading applications...</p>
             </CardContent>
           </Card>
-        ))}
+        ) : (
+          filteredApplications.map((app) => (
+            <Card key={app.id}>
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center flex-wrap gap-2 sm:gap-3 mb-3">
+                      {getStatusIcon(app.status.toLowerCase())}
+                      <h3 className="text-base sm:text-lg font-semibold text-black">
+                        {app.packageType || 'Application'}
+                      </h3>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(app.status.toLowerCase())}`}>
+                        {getStatusText(app.status.toLowerCase())}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-4">
+                      <div>
+                        <p className="text-xs sm:text-sm text-black font-medium">
+                          {app.status === 'IN_REVIEW' ? 'Submitted' : 'Created'}
+                        </p>
+                        <p className="text-xs sm:text-sm text-black flex items-center mt-1">
+                          <Calendar className="h-3 w-3 mr-1" />
+                          {new Date(app.updatedAt || app.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs sm:text-sm text-black font-medium">Documents</p>
+                        <p className="text-xs sm:text-sm text-black flex items-center mt-1">
+                          <FileText className="h-3 w-3 mr-1" />
+                          {app.documents?.length || 0} files
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs sm:text-sm text-black font-medium">Experiences</p>
+                        <p className="text-xs sm:text-sm text-black mt-1">
+                          {app.experiences?.length || 0} added
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs sm:text-sm text-black font-medium">Last Updated</p>
+                        <p className="text-xs sm:text-sm text-black mt-1">
+                          {new Date(app.updatedAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Progress Bar for Drafts */}
+                    {app.status === 'DRAFT' && (
+                      <div className="mb-0 sm:mb-4">
+                        <div className="flex justify-between text-xs sm:text-sm mb-1">
+                          <span className="text-black font-medium">Completion</span>
+                          <span className="text-black">
+                            {Math.round(
+                              ((app.personalStatement ? 25 : 0) +
+                                (app.experiences?.length > 0 ? 25 : 0) +
+                                (app.documents?.length > 0 ? 25 : 0) +
+                                (app.firstName ? 25 : 0))
+                            )}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className="h-2 rounded-full bg-blue-600"
+                            style={{
+                              width: `${Math.round(
+                                ((app.personalStatement ? 25 : 0) +
+                                  (app.experiences?.length > 0 ? 25 : 0) +
+                                  (app.documents?.length > 0 ? 25 : 0) +
+                                  (app.firstName ? 25 : 0))
+                              )}%`
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Actions - Mobile optimized */}
+                  <div className="flex sm:flex-col gap-2 w-full sm:w-auto">
+                    {app.status === 'DRAFT' ? (
+                      <Link href={`/dashboard/new?draft=${app.id}`} className="flex-1 sm:flex-none">
+                        <Button variant="outline" size="sm" className="w-full">
+                          <Edit className="h-4 w-4 mr-2" />
+                          Continue Editing
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Link href={`/dashboard/applications/${app.id}`} className="flex-1 sm:flex-none">
+                        <Button variant="outline" size="sm" className="w-full">
+                          <Eye className="h-4 w-4 mr-2" />
+                          View
+                        </Button>
+                      </Link>
+                    )}
+                    {app.status === "COMPLETED" && (
+                      <Button variant="outline" size="sm" className="flex-1 sm:flex-none sm:w-full">
+                        <Download className="h-4 w-4 mr-2" />
+                        Download
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        )}
       </div>
 
       {filteredApplications.length === 0 && (

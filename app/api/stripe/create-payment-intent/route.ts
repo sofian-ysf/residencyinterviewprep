@@ -24,9 +24,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { packageId, packageName, amount } = await req.json();
+    const body = await req.json();
+    const packageId = body.planId || body.packageId;
+    const packageName = body.planName || body.packageName || packageId;
+    const amount = body.amount;
 
-    if (!packageId || !packageName || !amount) {
+    if (!packageId || !amount) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }

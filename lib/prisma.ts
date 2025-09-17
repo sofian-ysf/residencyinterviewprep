@@ -4,6 +4,14 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-export const prisma = globalThis.prisma || new PrismaClient();
+const prismaClientSingleton = () => {
+  return new PrismaClient({
+    log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
+  });
+};
 
-if (process.env.NODE_ENV !== "production") globalThis.prisma = prisma;
+export const prisma = globalThis.prisma ?? prismaClientSingleton();
+
+if (process.env.NODE_ENV !== "production") {
+  globalThis.prisma = prisma;
+}
