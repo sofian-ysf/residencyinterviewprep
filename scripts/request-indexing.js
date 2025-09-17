@@ -14,7 +14,7 @@ const SITE_URL = 'https://www.myerasediting.com';
 const BATCH_SIZE = 100; // Google's limit per request
 const DELAY_BETWEEN_BATCHES = 1000; // 1 second
 
-// Priority pages to index first
+// Priority pages to index first - ONLY PAGES THAT ACTUALLY EXIST
 const PRIORITY_PAGES = [
   '/',
   '/pricing',
@@ -22,13 +22,16 @@ const PRIORITY_PAGES = [
   '/timeline',
   '/blog',
   '/about',
-  '/contact',
-  '/specialties/internal-medicine',
-  '/specialties/surgery',
-  '/specialties/pediatrics',
   '/guides/personal-statement',
-  '/guides/cv-formatting',
-  '/guides/eras-timeline'
+  '/guides/letters-of-recommendation',
+  '/guides/activity-descriptions',
+  '/guides/interview-prep',
+  '/guides/program-selection',
+  '/guides/specialties',
+  '/auth/signin',
+  '/auth/signup',
+  '/privacy',
+  '/terms'
 ];
 
 async function authenticateGoogle() {
@@ -95,22 +98,57 @@ async function requestIndexing(auth, urls) {
 }
 
 async function fetchSitemapUrls() {
+  // Since the deployed sitemap is still wrong, return all ACTUAL pages
+  const actualPages = [
+    '/',
+    '/pricing',
+    '/guides',
+    '/timeline',
+    '/blog',
+    '/about',
+    '/guides/personal-statement',
+    '/guides/letters-of-recommendation',
+    '/guides/activity-descriptions',
+    '/guides/interview-prep',
+    '/guides/program-selection',
+    '/guides/specialties',
+    '/services/personal-statement',
+    '/services/experiences',
+    '/services/letters',
+    '/auth/signin',
+    '/auth/signup',
+    '/privacy',
+    '/terms',
+    '/dashboard',
+    '/dashboard/new',
+    '/dashboard/applications',
+    '/dashboard/billing',
+    '/dashboard/reviews',
+    '/dashboard/profile',
+    '/payment/success',
+    '/payment/cancel'
+  ];
+  
+  // Also fetch blog posts from the database dynamically
   try {
     const response = await fetch(`${SITE_URL}/sitemap.xml`);
     const text = await response.text();
     
-    // Extract URLs from sitemap
-    const urlMatches = text.match(/<loc>(.*?)<\/loc>/g);
-    if (!urlMatches) return [];
-
-    return urlMatches
-      .map(match => match.replace(/<\/?loc>/g, ''))
-      .map(url => url.replace(SITE_URL, ''))
-      .filter(url => url); // Remove empty strings
+    // Extract only blog URLs from sitemap (they're real)
+    const blogMatches = text.match(/<loc>https:\/\/www\.myerasediting\.com\/blog\/[^<]+<\/loc>/g);
+    if (blogMatches) {
+      const blogUrls = blogMatches
+        .map(match => match.replace(/<\/?loc>/g, ''))
+        .map(url => url.replace(SITE_URL, ''));
+      
+      // Combine static pages with blog posts
+      return [...new Set([...actualPages, ...blogUrls])];
+    }
   } catch (error) {
-    console.error('❌ Failed to fetch sitemap:', error.message);
-    return [];
+    console.error('⚠️ Could not fetch blog posts from sitemap:', error.message);
   }
+  
+  return actualPages;
 }
 
 async function main() {

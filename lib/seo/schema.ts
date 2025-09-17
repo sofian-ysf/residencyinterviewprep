@@ -144,7 +144,7 @@ export const serviceSchema = (service: {
     "priceValidUntil": new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
     "deliveryLeadTime": {
       "@type": "QuantitativeValue",
-      "value": service.turnaround.match(/\d+/)?.[0] || "48",
+      "value": service.turnaround?.match(/\d+/)?.[0] || "48",
       "unitCode": "HUR"
     }
   },
