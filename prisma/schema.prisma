@@ -8,8 +8,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DB__DATABASE_URL")
-  directUrl = env("DB__DIRECT_URL")
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // User authentication and profile
@@ -74,17 +74,8 @@ model Application {
   packageType   PackageType
   status        ApplicationStatus @default(DRAFT)
 
-  // Personal Information
-  firstName     String?
-  lastName      String?
-  email         String?
-  phone         String?
-  aamc          String?
-  medicalSchool String?
-  graduationYear Int?
-
   // Personal Statement
-  personalStatement String? @db.Text
+  personalStatement String?
   psWordCount      Int?
   psCharCount      Int?
   
