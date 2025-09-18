@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -12,7 +11,8 @@ import {
   CheckCircle,
   HelpCircle,
   FileText,
-  Users
+  Users,
+  DollarSign
 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -393,11 +393,11 @@ export default function ContactPage() {
 
           <div className="grid md:grid-cols-3 gap-6 text-center">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-              <div className="text-3xl font-bold mb-2">< 2 hours</div>
+              <div className="text-3xl font-bold mb-2">&lt; 2 hours</div>
               <div className="text-gray-300">Email response during business hours</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
-              <div className="text-3xl font-bold mb-2">< 30 min</div>
+              <div className="text-3xl font-bold mb-2">&lt; 30 min</div>
               <div className="text-gray-300">Urgent deadline inquiries</div>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
