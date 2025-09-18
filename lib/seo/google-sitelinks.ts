@@ -7,7 +7,7 @@ export const siteNavigationSchema = {
   "@id": "https://www.myerasediting.com/#website",
   "url": "https://www.myerasediting.com",
   "name": "MyERAS Editing",
-  "alternateName": ["MyERAS Editing", "ERAS Review Service", "ERAS Application Review"],
+  "alternateName": ["MyERAS Editor", "ERAS Review Service", "ERAS Application Review"],
   "description": "Expert ERAS application review service. Personal statements, CV optimization, and comprehensive residency application preparation by physicians who matched successfully.",
   "publisher": {
     "@type": "Organization",
@@ -30,10 +30,10 @@ export const siteNavigationSchema = {
   },
   "headline": "MyERAS Editing - Expert ERAS Application Review Service",
   "sameAs": [
-    "https://www.facebook.com/myerasreviewer",
-    "https://twitter.com/myerasreviewer",
-    "https://www.linkedin.com/company/myerasreviewer",
-    "https://www.instagram.com/myerasreviewer"
+    "https://www.facebook.com/myerasediting",
+    "https://twitter.com/myerasediting",
+    "https://www.linkedin.com/company/myerasediting",
+    "https://www.instagram.com/myerasediting"
   ]
 };
 
@@ -113,7 +113,7 @@ export const brandKnowledgeGraphSchema = {
   "@id": "https://www.myerasediting.com/#organization",
   "name": "MyERAS Editing",
   "legalName": "MyERAS Editing LLC",
-  "alternateName": ["MyERAS Editing", "MyERAS Review Service"],
+  "alternateName": ["MyERAS Editor", "ERAS Review Service"],
   "url": "https://www.myerasediting.com",
   "logo": {
     "@type": "ImageObject",
@@ -135,11 +135,11 @@ export const brandKnowledgeGraphSchema = {
     "addressCountry": "US"
   },
   "sameAs": [
-    "https://www.facebook.com/myerasreviewer",
-    "https://twitter.com/myerasreviewer",
-    "https://www.linkedin.com/company/myerasreviewer",
-    "https://www.instagram.com/myerasreviewer",
-    "https://www.youtube.com/@myerasreviewer"
+    "https://www.facebook.com/myerasediting",
+    "https://twitter.com/myerasediting",
+    "https://www.linkedin.com/company/myerasediting",
+    "https://www.instagram.com/myerasediting",
+    "https://www.youtube.com/@myerasediting"
   ],
   "foundingDate": "2020",
   "founders": [

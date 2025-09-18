@@ -7,6 +7,8 @@ import { CheckCircle, Star, Shield, Clock, Users, Award, AlertTriangle, DollarSi
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SitelinksSchema from "@/components/SitelinksSchema";
+import { ServiceListSchema } from "@/components/seo/ServiceSchema";
+import Script from "next/script";
 import { useState } from "react";
 
 const packages = [
@@ -123,9 +125,53 @@ const faqs = [
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  // Services for ItemList schema
+  const services = [
+    {
+      name: "Personal Statement Review",
+      description: "Expert review and editing of ERAS personal statement by successful physicians",
+      url: "https://www.myerasediting.com/services/personal-statement",
+      price: "149"
+    },
+    {
+      name: "Experience Descriptions",
+      description: "Optimize all 15 ERAS experience descriptions for maximum impact",
+      url: "https://www.myerasediting.com/services/experiences",
+      price: "199"
+    },
+    {
+      name: "Letters of Recommendation Review",
+      description: "Review and improve recommendation letters to avoid red flags",
+      url: "https://www.myerasediting.com/services/letters",
+      price: "99"
+    }
+  ];
+
+  // Aggregate Rating schema
+  const aggregateRatingSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "MyERAS Editing",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "2847",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <SitelinksSchema />
+      <ServiceListSchema services={services} />
+      <Script
+        id="aggregate-rating-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(aggregateRatingSchema)
+        }}
+      />
       <Navbar />
 
       {/* Hero Section */}

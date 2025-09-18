@@ -99,8 +99,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Remove specialty pages - they don't exist
-  const specialtyPages: MetadataRoute.Sitemap = [];
+  // Service pages that exist
+  const servicePages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/services/personal-statement`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+      images: [`${baseUrl}/og-personal-statement.png`],
+    },
+    {
+      url: `${baseUrl}/services/experiences`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      images: [`${baseUrl}/og-experiences.png`],
+    },
+    {
+      url: `${baseUrl}/services/letters`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      images: [`${baseUrl}/og-letters.png`],
+    },
+  ];
 
   // Only include guide pages that actually exist
   const existingGuides = [
@@ -118,15 +140,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'monthly' as const,
     priority: 0.85,
   }));
-
-  // Remove service pages - they don't exist
-  const servicePages: MetadataRoute.Sitemap = [];
-
-  // Remove blog category pages - they don't exist
-  const categoryPages: MetadataRoute.Sitemap = [];
-
-  // Remove location pages - they don't exist
-  const locationPages: MetadataRoute.Sitemap = [];
 
   // Only include info pages that exist
   const infoPages: MetadataRoute.Sitemap = [
@@ -173,6 +186,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Combine only pages that actually exist
   return [
     ...corePages,      // Home, pricing, guides, timeline, blog
+    ...servicePages,   // 3 service pages
     ...guidePages,     // 6 guide subpages
     ...infoPages,      // About page
     ...authPages,      // Sign in/up pages

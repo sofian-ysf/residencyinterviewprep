@@ -1,7 +1,7 @@
 {
-  "name": "MyERAS Reviewer",
-  "short_name": "MyERAS",
-  "description": "Expert ERAS Application Review Service",
+  "name": "MyERAS Editing",
+  "short_name": "MyERAS Editing",
+  "description": "Expert ERAS Application Review Service by Physicians Who Matched Successfully",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

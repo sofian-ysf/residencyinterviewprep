@@ -495,10 +495,23 @@ export default function NewApplicationPage() {
               <Label htmlFor="personal-statement" className="text-black font-medium">Personal Statement Text</Label>
               <Textarea
                 id="personal-statement"
+                value={personalStatement}
+                onChange={(e) => {
+                  const text = e.target.value;
+                  if (text.length <= 5300) {
+                    setPersonalStatement(text);
+                  }
+                }}
                 placeholder="Paste your personal statement here..."
                 className="min-h-[300px] mt-2 text-black placeholder-gray-500"
+                maxLength={5300}
               />
-              <p className="text-sm text-gray-600 mt-2">0 / 5,300 characters</p>
+              <p className="text-sm text-gray-600 mt-2">
+                {personalStatement.length} / 5,300 characters
+                {personalStatement.length > 5000 && (
+                  <span className="text-orange-600 ml-2">Approaching limit</span>
+                )}
+              </p>
             </div>
 
             <div className="flex items-center gap-4">

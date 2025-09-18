@@ -146,12 +146,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/',
       }
     ],
-    sitemap: [
-      `${baseUrl}/sitemap.xml`,
-      `${baseUrl}/sitemap-blog.xml`,
-      `${baseUrl}/sitemap-guides.xml`,
-      `${baseUrl}/sitemap-specialties.xml`
-    ],
+    sitemap: `${baseUrl}/sitemap.xml`,
     host: baseUrl,
   };
 }

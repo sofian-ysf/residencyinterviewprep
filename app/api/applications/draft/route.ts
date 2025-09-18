@@ -42,24 +42,26 @@ export async function POST(request: NextRequest) {
       packageType: packageType || 'BASIC',
       status: 'DRAFT',
 
-      // Personal Information
-      firstName: personalInfo?.firstName,
-      lastName: personalInfo?.lastName,
-      email: personalInfo?.email || session.user.email,
-      phone: personalInfo?.phone,
-      aamc: personalInfo?.aamc,
-      medicalSchool: personalInfo?.medicalSchool,
-      graduationYear: personalInfo?.graduationYear ? parseInt(personalInfo.graduationYear) : null,
-
       // Personal Statement
-      personalStatement: personalStatement?.content,
-      psCharCount: personalStatement?.charCount,
+      personalStatement: personalStatement?.content || '',
+      psCharCount: personalStatement?.charCount || 0,
 
-      // Program Signals
-      programSignals: programSignals || {},
+      // Program Signals (store personal info here temporarily)
+      programSignals: {
+        ...(programSignals || {}),
+        personalInfo: {
+          firstName: personalInfo?.firstName,
+          lastName: personalInfo?.lastName,
+          email: personalInfo?.email || session.user.email,
+          phone: personalInfo?.phone,
+          aamc: personalInfo?.aamc,
+          medicalSchool: personalInfo?.medicalSchool,
+          graduationYear: personalInfo?.graduationYear,
+        }
+      },
 
       // Impactful Experience
-      impactfulExperience: impactfulExperience,
+      impactfulExperience: impactfulExperience || '',
     };
 
     let application: any;

@@ -28,10 +28,10 @@ export default function SitelinksSchema() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Corporation",
-            "name": "MyERAS Reviewer",
-            "alternateName": ["MyERAS Editing", "MyERAS Review Service", "ERAS Application Review Service"],
-            "url": "https://myerasreviewer.com",
-            "logo": "https://myerasreviewer.com/logo2.png",
+            "name": "MyERAS Editing",
+            "alternateName": ["MyERAS Editor", "ERAS Review Service", "ERAS Application Review Service"],
+            "url": "https://www.myerasediting.com",
+            "logo": "https://www.myerasediting.com/logo2.png",
             "contactPoint": {
               "@type": "ContactPoint",
               "telephone": "+1-800-ERAS-HELP",
@@ -39,11 +39,11 @@ export default function SitelinksSchema() {
               "availableLanguage": ["English", "Spanish"]
             },
             "sameAs": [
-              "https://www.facebook.com/myerasreviewer",
-              "https://twitter.com/myerasreviewer",
-              "https://www.linkedin.com/company/myerasreviewer",
-              "https://www.instagram.com/myerasreviewer",
-              "https://www.youtube.com/@myerasreviewer"
+              "https://www.facebook.com/myerasediting",
+              "https://twitter.com/myerasediting",
+              "https://www.linkedin.com/company/myerasediting",
+              "https://www.instagram.com/myerasediting",
+              "https://www.youtube.com/@myerasediting"
             ]
           })
         }}
@@ -58,7 +58,7 @@ export default function SitelinksSchema() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "MyERAS Reviewer",
+            "name": "MyERAS Editing",
             "speakable": {
               "@type": "SpeakableSpecification",
               "xpath": [
