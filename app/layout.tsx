@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
@@ -9,6 +9,13 @@ const poppins = Poppins({
   display: 'swap',
   variable: "--font-poppins",
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#ffffff',
+};
 
 export const metadata: Metadata = {
   title: "MyERAS Editing - Expert ERAS Application Review Service",
@@ -76,10 +83,7 @@ export const metadata: Metadata = {
   
   // PWA manifest
   manifest: "/site.webmanifest",
-  
-  // Theme color
-  themeColor: "#ffffff",
-  
+
   // Additional metadata for branding
   keywords: ["MyERAS Editing", "MyERAS Editing", "ERAS application review", "residency personal statement", "ERAS CV review", "medical residency application", "ERAS experience descriptions", "letters of recommendation review"],
   authors: [{ name: "MyERAS Editing Team", url: "https://www.myerasediting.com/about" }],
@@ -92,13 +96,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://www.myerasediting.com",
-  },
-  
-  // Viewport configuration
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
   },
   
   // Robots configuration

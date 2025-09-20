@@ -29,6 +29,26 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { applicationId } = body;
 
+    // Check if user already has an application in review
+    const existingInReview = await prisma.application.findFirst({
+      where: {
+        userId: user.id,
+        status: {
+          in: ['IN_REVIEW', 'SUBMITTED']
+        }
+      }
+    });
+
+    if (existingInReview) {
+      return NextResponse.json(
+        {
+          error: 'You already have an application in review. Please wait for it to be completed before submitting another.',
+          existingApplicationId: existingInReview.id
+        },
+        { status: 400 }
+      );
+    }
+
     if (!applicationId) {
       return NextResponse.json(
         { error: 'Application ID is required' },

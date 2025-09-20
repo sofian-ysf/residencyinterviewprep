@@ -37,9 +37,17 @@ export async function POST(request: NextRequest) {
       impactfulExperience,
     } = body;
 
+    // Map package types from pricing to Prisma enum
+    const packageTypeMap: { [key: string]: string } = {
+      'basic': 'ESSENTIAL',
+      'professional': 'COMPREHENSIVE',
+      'premium': 'PREMIUM',
+      'complete': 'COMPLETE'
+    };
+
     // If applicationId exists, update it, otherwise create new
     const applicationData: any = {
-      packageType: packageType || 'BASIC',
+      packageType: packageTypeMap[packageType?.toLowerCase()] || 'ESSENTIAL',
       status: 'DRAFT',
 
       // Personal Statement

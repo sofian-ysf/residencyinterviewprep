@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -20,20 +20,24 @@ import {
   FileUp,
   Save,
   Edit,
-  Trash2
+  Trash2,
+  Download
 } from "lucide-react";
 
-export default function NewApplicationPage() {
+function NewApplicationPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const draftId = searchParams.get('draft');
   const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [hasActivePayment, setHasActivePayment] = useState(false);
   const [loading, setLoading] = useState(true);
   const [applicationData, setApplicationData] = useState<any>(null);
-  const [uploadedFiles, setUploadedFiles] = useState<Record<string, File | null>>({
+  const [uploadedFiles, setUploadedFiles] = useState<Record<string, any>>({
     personalStatement: null,
     cv: null
   });
+  const [uploadedDocuments, setUploadedDocuments] = useState<any[]>([]);
   const [uploading, setUploading] = useState<Record<string, boolean>>({});
   const [personalStatement, setPersonalStatement] = useState('');
   const [experiences, setExperiences] = useState<any[]>([]);
@@ -47,6 +51,103 @@ export default function NewApplicationPage() {
   useEffect(() => {
     checkPaymentStatus();
   }, []);
+
+  useEffect(() => {
+    // Load draft if draft ID is provided in URL
+    if (draftId) {
+      console.log('Draft ID from URL:', draftId); // Debug log
+      // Set the currentDraftId immediately so save operations work
+      setCurrentDraftId(draftId);
+      // Small delay to ensure component is fully mounted
+      const timer = setTimeout(() => {
+        loadDraft(draftId);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [draftId]);
+
+  // Debug effect to monitor personal statement changes
+  useEffect(() => {
+    console.log('Personal statement state updated, new length:', personalStatement.length);
+    console.log('First 100 chars:', personalStatement.substring(0, 100));
+  }, [personalStatement]);
+
+  // Debug effect to monitor currentDraftId
+  useEffect(() => {
+    console.log('Current draft ID updated:', currentDraftId);
+  }, [currentDraftId]);
+
+  // Debug effect to monitor uploadedFiles changes
+  useEffect(() => {
+    console.log('Uploaded files updated:', uploadedFiles);
+  }, [uploadedFiles]);
+
+  const loadDraft = async (draftId: string) => {
+    try {
+      const response = await fetch(`/api/applications/${draftId}`);
+      if (response.ok) {
+        const draft = await response.json();
+        console.log('Loaded draft:', draft); // Debug log
+        console.log('Personal statement from API:', draft.personalStatement); // Debug log
+
+        // Set the draft ID for updates
+        setCurrentDraftId(draftId);
+
+        // Load personal statement - force update with new value
+        if (draft.personalStatement) {
+          console.log('Setting personal statement, length:', draft.personalStatement.length);
+          // Use setTimeout to ensure state update happens after render cycle
+          setTimeout(() => {
+            setPersonalStatement(draft.personalStatement);
+          }, 0);
+        } else {
+          setPersonalStatement('');
+        }
+
+        // Load experiences if any
+        if (draft.experiences && draft.experiences.length > 0) {
+          setExperiences(draft.experiences);
+        }
+
+        // Load documents if any
+        if (draft.documents && draft.documents.length > 0) {
+          setAdditionalDocuments(draft.documents);
+
+          // Map documents to uploadedFiles for personal statement and CV
+          draft.documents.forEach((doc: any) => {
+            if (doc.fileType === 'PERSONAL_STATEMENT') {
+              setUploadedFiles(prev => ({ ...prev, personalStatement: doc }));
+            } else if (doc.fileType === 'CV') {
+              setUploadedFiles(prev => ({ ...prev, cv: doc }));
+            }
+          });
+        }
+
+        // Load package type
+        if (draft.packageType) {
+          // Map from Prisma enum to pricing ID
+          const packageMap: { [key: string]: string } = {
+            'ESSENTIAL': 'basic',
+            'COMPREHENSIVE': 'professional',
+            'PREMIUM': 'premium',
+            'COMPLETE': 'complete'
+          };
+          setSelectedPackage(packageMap[draft.packageType] || 'basic');
+        }
+
+        // Load other data from programSignals if available
+        if (draft.programSignals) {
+          // You can set additional form fields here if needed
+        }
+      } else {
+        console.error('Failed to load draft, status:', response.status);
+        const errorText = await response.text();
+        console.error('Error response:', errorText);
+      }
+    } catch (error) {
+      console.error('Error loading draft:', error);
+    }
+  };
 
   const checkPaymentStatus = async () => {
     try {
@@ -89,7 +190,7 @@ export default function NewApplicationPage() {
       return;
     }
 
-    setUploading({ ...uploading, [documentType]: true });
+    setUploading(prev => ({ ...prev, [documentType]: true }));
 
     try {
       const formData = new FormData();
@@ -107,7 +208,24 @@ export default function NewApplicationPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setUploadedFiles({ ...uploadedFiles, [documentType]: file });
+        console.log('Upload successful, data:', data);
+        // Store both the file and the response data
+        const uploadData = {
+          file: file,
+          fileName: file.name,
+          name: file.name,
+          ...data.document || data.file
+        };
+
+        // Map the document type key correctly
+        const fileKey = documentType === 'personal-statement' ? 'personalStatement' : documentType;
+        setUploadedFiles(prev => ({ ...prev, [fileKey]: uploadData }));
+
+        // If it's a document with an ID, add it to the documents list
+        if (data.document) {
+          setUploadedDocuments(prev => [...prev, data.document]);
+        }
+
         alert(`${documentType === 'cv' ? 'CV' : 'Personal Statement'} uploaded successfully!`);
       } else {
         alert(data.error || 'Upload failed');
@@ -116,7 +234,7 @@ export default function NewApplicationPage() {
       console.error('Upload error:', error);
       alert('Failed to upload file');
     } finally {
-      setUploading({ ...uploading, [documentType]: false });
+      setUploading(prev => ({ ...prev, [documentType]: false }));
     }
   };
 
@@ -139,6 +257,29 @@ export default function NewApplicationPage() {
     const file = e.dataTransfer.files?.[0];
     if (file) {
       handleFileUpload(file, documentType);
+    }
+  };
+
+  const handleDocumentDownload = async (doc: any) => {
+    try {
+      const response = await fetch(`/api/download?${doc.id ? `id=${doc.id}` : `path=${doc.path || doc.fileUrl}`}`);
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = doc.fileName || doc.name || 'document';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else {
+        alert('Failed to download document');
+      }
+    } catch (error) {
+      console.error('Download error:', error);
+      alert('Failed to download document');
     }
   };
 
@@ -216,11 +357,14 @@ export default function NewApplicationPage() {
 
       if (res.ok) {
         const newDoc = {
-          id: docId,
+          id: data.document?.id || docId,
           name: file.name,
+          fileName: data.document?.fileName || file.name,
           size: file.size,
           type: file.type,
-          uploadedAt: new Date().toISOString()
+          path: data.file?.path,
+          fileUrl: data.document?.fileUrl,
+          uploadedAt: data.document?.uploadedAt || new Date().toISOString()
         };
         setAdditionalDocuments([...additionalDocuments, newDoc]);
         alert('Document uploaded successfully!');
@@ -257,8 +401,8 @@ export default function NewApplicationPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          applicationId: currentDraftId,
-          packageType: selectedPackage || 'BASIC',
+          applicationId: currentDraftId, // This will update existing draft if currentDraftId is set
+          packageType: selectedPackage || 'basic',
           personalInfo: {
             // You might want to add form fields for these
             firstName: '',
@@ -278,7 +422,12 @@ export default function NewApplicationPage() {
       const data = await response.json();
 
       if (response.ok) {
-        setCurrentDraftId(data.applicationId);
+        // Only update the draft ID if we didn't have one before
+        if (!currentDraftId) {
+          setCurrentDraftId(data.applicationId);
+          // Update URL to include the draft ID for future saves
+          window.history.replaceState({}, '', `/dashboard/new?draft=${data.applicationId}`);
+        }
         alert('Draft saved successfully!');
       } else {
         alert('Failed to save draft: ' + data.error);
@@ -302,7 +451,7 @@ export default function NewApplicationPage() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            packageType: selectedPackage || 'BASIC',
+            packageType: selectedPackage || 'basic',
             personalInfo: {
               firstName: '',
               lastName: '',
@@ -360,7 +509,11 @@ export default function NewApplicationPage() {
         // Redirect to applications page
         router.push('/dashboard/applications');
       } else {
-        alert('Failed to submit application: ' + data.error);
+        if (data.existingApplicationId) {
+          alert(data.error + '\n\nYou can view your current application in review from the Applications page.');
+        } else {
+          alert('Failed to submit application: ' + data.error);
+        }
       }
     } catch (error) {
       console.error('Error submitting application:', error);
@@ -498,6 +651,7 @@ export default function NewApplicationPage() {
                 value={personalStatement}
                 onChange={(e) => {
                   const text = e.target.value;
+                  console.log('Textarea onChange, new length:', text.length);
                   if (text.length <= 5300) {
                     setPersonalStatement(text);
                   }
@@ -535,9 +689,14 @@ export default function NewApplicationPage() {
               </div>
               <span className="text-sm text-gray-500">or paste text above</span>
               {uploadedFiles.personalStatement && (
-                <span className="text-sm text-green-600 font-medium">
-                  ✓ {uploadedFiles.personalStatement.name}
-                </span>
+                <button
+                  onClick={() => handleDocumentDownload(uploadedFiles.personalStatement)}
+                  className="text-sm text-green-600 font-medium hover:underline flex items-center gap-2"
+                >
+                  <FileText className="h-4 w-4" />
+                  ✓ {uploadedFiles.personalStatement.fileName || uploadedFiles.personalStatement.name || uploadedFiles.personalStatement.file?.name || 'Document uploaded'}
+                  <Download className="h-3 w-3" />
+                </button>
               )}
             </div>
           </CardContent>
@@ -562,9 +721,14 @@ export default function NewApplicationPage() {
               {uploadedFiles.cv ? (
                 <div>
                   <Check className="h-10 w-10 text-green-500 mx-auto mb-3" />
-                  <p className="text-sm text-gray-700 mb-3 font-medium">
-                    File uploaded: {uploadedFiles.cv.name}
-                  </p>
+                  <button
+                    onClick={() => handleDocumentDownload(uploadedFiles.cv)}
+                    className="text-sm text-gray-700 mb-3 font-medium hover:underline flex items-center gap-2 mx-auto"
+                  >
+                    <FileText className="h-4 w-4" />
+                    {uploadedFiles.cv.fileName || uploadedFiles.cv.name || uploadedFiles.cv.file?.name}
+                    <Download className="h-3 w-3" />
+                  </button>
                   <input
                     type="file"
                     id="cv-upload"
@@ -703,9 +867,12 @@ export default function NewApplicationPage() {
                 {additionalDocuments.map((doc) => (
                   <div
                     key={doc.id}
-                    className="flex items-center justify-between p-3 border rounded-lg bg-gray-50"
+                    className="flex items-center justify-between p-3 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
                   >
-                    <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => handleDocumentDownload(doc)}
+                      className="flex items-center gap-3 flex-grow text-left hover:underline"
+                    >
                       <FileText className="h-5 w-5 text-gray-500" />
                       <div>
                         <p className="font-medium text-black text-sm">{doc.name}</p>
@@ -713,7 +880,7 @@ export default function NewApplicationPage() {
                           {formatFileSize(doc.size)} • Uploaded {new Date(doc.uploadedAt).toLocaleDateString()}
                         </p>
                       </div>
-                    </div>
+                    </button>
                     <button
                       onClick={() => handleDeleteDocument(doc.id)}
                       className="text-red-600 hover:text-red-800"
@@ -949,5 +1116,25 @@ export default function NewApplicationPage() {
         />
       )}
     </div>
+  );
+}
+
+// Export with Suspense wrapper for useSearchParams
+export default function Page() {
+  return (
+    <Suspense fallback={
+      <div className="max-w-7xl mx-auto p-4">
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/2 mb-8"></div>
+          <div className="space-y-4">
+            <div className="h-40 bg-gray-200 rounded"></div>
+            <div className="h-40 bg-gray-200 rounded"></div>
+          </div>
+        </div>
+      </div>
+    }>
+      <NewApplicationPage />
+    </Suspense>
   );
 }

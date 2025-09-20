@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Modal } from "@/components/ui/modal";
 import {
   FileText,
   Clock,
@@ -14,7 +15,10 @@ import {
   Download,
   Plus,
   ChevronDown,
-  Edit
+  Edit,
+  Trash2,
+  Lock,
+  Mail
 } from "lucide-react";
 
 export default function ApplicationsPage() {
@@ -22,6 +26,25 @@ export default function ApplicationsPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    appId: '',
+    appStatus: ''
+  });
+  const [successModal, setSuccessModal] = useState({
+    isOpen: false,
+    message: ''
+  });
+  const [errorModal, setErrorModal] = useState({
+    isOpen: false,
+    message: ''
+  });
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [editRequestModal, setEditRequestModal] = useState({
+    isOpen: false,
+    appId: ''
+  });
+  const [requestedEdits, setRequestedEdits] = useState<string[]>([]);
 
   useEffect(() => {
     fetchApplications();
@@ -39,6 +62,94 @@ export default function ApplicationsPage() {
       console.error('Error fetching applications:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteApplication = async (appId: string, appStatus: string) => {
+    // Don't allow deletion of applications in review
+    if (appStatus === 'IN_REVIEW' || appStatus === 'SUBMITTED') {
+      setErrorModal({
+        isOpen: true,
+        message: 'Cannot delete applications that are currently in review.'
+      });
+      return;
+    }
+
+    // Show confirmation modal
+    setDeleteModal({
+      isOpen: true,
+      appId,
+      appStatus
+    });
+  };
+
+  const handleRequestEdit = (appId: string) => {
+    setEditRequestModal({
+      isOpen: true,
+      appId
+    });
+  };
+
+  const sendEditRequest = async () => {
+    // In a real application, this would send an email or notification to the admin
+    // For now, we'll just show a success message and track the request
+    const appId = editRequestModal.appId;
+    setRequestedEdits(prev => [...prev, appId]);
+    setEditRequestModal({ isOpen: false, appId: '' });
+
+    // Store in localStorage to persist the state
+    const stored = localStorage.getItem('requestedEdits') || '[]';
+    const current = JSON.parse(stored);
+    if (!current.includes(appId)) {
+      current.push(appId);
+      localStorage.setItem('requestedEdits', JSON.stringify(current));
+    }
+
+    setSuccessModal({
+      isOpen: true,
+      message: 'Edit request sent! An administrator will review your request and contact you soon.'
+    });
+  };
+
+  // Load requested edits from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem('requestedEdits');
+    if (stored) {
+      setRequestedEdits(JSON.parse(stored));
+    }
+  }, []);
+
+  const confirmDelete = async () => {
+    setIsDeleting(true);
+    try {
+      const response = await fetch(`/api/applications/${deleteModal.appId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        // Remove the deleted application from the list
+        setApplications(applications.filter(app => app.id !== deleteModal.appId));
+        setDeleteModal({ isOpen: false, appId: '', appStatus: '' });
+        setSuccessModal({
+          isOpen: true,
+          message: 'Application deleted successfully'
+        });
+      } else {
+        setDeleteModal({ isOpen: false, appId: '', appStatus: '' });
+        setErrorModal({
+          isOpen: true,
+          message: 'Failed to delete application. Please try again.'
+        });
+      }
+    } catch (error) {
+      console.error('Error deleting application:', error);
+      setDeleteModal({ isOpen: false, appId: '', appStatus: '' });
+      setErrorModal({
+        isOpen: true,
+        message: 'An error occurred while deleting the application.'
+      });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -263,6 +374,38 @@ export default function ApplicationsPage() {
                           Continue Editing
                         </Button>
                       </Link>
+                    ) : app.status === 'IN_REVIEW' || app.status === 'SUBMITTED' ? (
+                      <>
+                        <Link href={`/dashboard/applications/${app.id}`} className="flex-1 sm:flex-none">
+                          <Button variant="outline" size="sm" className="w-full">
+                            <Eye className="h-4 w-4 mr-2" />
+                            View
+                          </Button>
+                        </Link>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className={`flex-1 sm:flex-none sm:w-full ${
+                            requestedEdits.includes(app.id)
+                              ? 'bg-gray-100 text-gray-600 cursor-not-allowed'
+                              : ''
+                          }`}
+                          onClick={() => !requestedEdits.includes(app.id) && handleRequestEdit(app.id)}
+                          disabled={requestedEdits.includes(app.id)}
+                        >
+                          {requestedEdits.includes(app.id) ? (
+                            <>
+                              <Clock className="h-4 w-4 mr-2" />
+                              Requested
+                            </>
+                          ) : (
+                            <>
+                              <Mail className="h-4 w-4 mr-2" />
+                              Request Edit
+                            </>
+                          )}
+                        </Button>
+                      </>
                     ) : (
                       <Link href={`/dashboard/applications/${app.id}`} className="flex-1 sm:flex-none">
                         <Button variant="outline" size="sm" className="w-full">
@@ -271,10 +414,24 @@ export default function ApplicationsPage() {
                         </Button>
                       </Link>
                     )}
-                    {app.status === "COMPLETED" && (
+
+                    {app.status === 'COMPLETED' && (
                       <Button variant="outline" size="sm" className="flex-1 sm:flex-none sm:w-full">
                         <Download className="h-4 w-4 mr-2" />
                         Download
+                      </Button>
+                    )}
+
+                    {/* Delete button - not for IN_REVIEW applications */}
+                    {(app.status === 'DRAFT' || app.status === 'COMPLETED') && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 sm:flex-none sm:w-full text-red-600 hover:text-red-700 hover:bg-red-50"
+                        onClick={() => handleDeleteApplication(app.id, app.status)}
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Delete
                       </Button>
                     )}
                   </div>
@@ -304,6 +461,49 @@ export default function ApplicationsPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        isOpen={deleteModal.isOpen}
+        onClose={() => !isDeleting && setDeleteModal({ isOpen: false, appId: '', appStatus: '' })}
+        type="confirm"
+        title="Delete Application"
+        description="Are you sure you want to delete this application? This action cannot be undone and all associated data will be permanently removed."
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={confirmDelete}
+        loading={isDeleting}
+      />
+
+      {/* Success Modal */}
+      <Modal
+        isOpen={successModal.isOpen}
+        onClose={() => setSuccessModal({ isOpen: false, message: '' })}
+        type="success"
+        title="Success"
+        description={successModal.message}
+      />
+
+      {/* Error Modal */}
+      <Modal
+        isOpen={errorModal.isOpen}
+        onClose={() => setErrorModal({ isOpen: false, message: '' })}
+        type="error"
+        title="Error"
+        description={errorModal.message}
+      />
+
+      {/* Edit Request Modal */}
+      <Modal
+        isOpen={editRequestModal.isOpen}
+        onClose={() => setEditRequestModal({ isOpen: false, appId: '' })}
+        type="confirm"
+        title="Request Edit Permission"
+        description="Your application is currently being reviewed. Would you like to request permission to make edits? An administrator will review your request and contact you."
+        confirmText="Send Request"
+        cancelText="Cancel"
+        onConfirm={sendEditRequest}
+      />
     </div>
   );
 }

@@ -152,7 +152,8 @@ model Review {
   overallFeedback String?
   psComments      String?
   experienceComments Json?
-  
+  editSummary    String?  // Summary of edits made
+
   rating        Int?     // 1-5 rating
   
   reviewStarted DateTime?

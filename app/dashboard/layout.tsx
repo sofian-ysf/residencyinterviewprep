@@ -6,18 +6,20 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
-import { 
-  FileText, 
-  Upload, 
-  CreditCard, 
-  User, 
+import {
+  FileText,
+  Upload,
+  User,
   LogOut,
   Home,
   PenTool,
   Clock,
   CheckCircle,
   Menu,
-  X
+  X,
+  Package,
+  Mail,
+  HelpCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -30,6 +32,11 @@ export default function DashboardLayout({
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [applicationStats, setApplicationStats] = useState({
+    inProgress: 0,
+    completed: 0
+  });
+  const [activePackage, setActivePackage] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === "loading") return;
@@ -37,6 +44,49 @@ export default function DashboardLayout({
       router.push("/auth/signin");
     }
   }, [session, status, router]);
+
+  // Fetch application stats
+  useEffect(() => {
+    const fetchApplicationStats = async () => {
+      if (session) {
+        try {
+          // Fetch all applications (not just drafts)
+          const response = await fetch('/api/applications/submit');
+          if (response.ok) {
+            const applications = await response.json();
+
+            // Count applications by status
+            const stats = applications.reduce((acc: any, app: any) => {
+              if (app.status === 'DRAFT' || app.status === 'IN_REVIEW' || app.status === 'SUBMITTED') {
+                acc.inProgress++;
+              } else if (app.status === 'COMPLETED' || app.status === 'REVIEWED') {
+                acc.completed++;
+              }
+              return acc;
+            }, { inProgress: 0, completed: 0 });
+
+            setApplicationStats(stats);
+
+            // Get the most recent application's package type
+            if (applications.length > 0) {
+              const latestApp = applications[0];
+              const packageMap: { [key: string]: string } = {
+                'ESSENTIAL': 'Essential',
+                'COMPREHENSIVE': 'Comprehensive',
+                'PREMIUM': 'Premium',
+                'COMPLETE': 'Complete'
+              };
+              setActivePackage(packageMap[latestApp.packageType] || latestApp.packageType);
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching application stats:', error);
+        }
+      }
+    };
+
+    fetchApplicationStats();
+  }, [session, pathname]); // Refresh when pathname changes
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -60,7 +110,6 @@ export default function DashboardLayout({
     { name: "My Applications", href: "/dashboard/applications", icon: FileText },
     { name: "New Application", href: "/dashboard/new", icon: Upload },
     { name: "Reviews", href: "/dashboard/reviews", icon: PenTool },
-    { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
     { name: "Profile", href: "/dashboard/profile", icon: User },
   ];
 
@@ -148,8 +197,19 @@ export default function DashboardLayout({
             </div>
           </nav>
 
+          {/* Package Info - Desktop */}
+          {activePackage && (
+            <div className="mt-6 mx-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+              <div className="flex items-center gap-2 mb-2">
+                <Package className="h-4 w-4 text-blue-600" />
+                <h3 className="text-sm font-semibold text-black">Active Package</h3>
+              </div>
+              <p className="text-sm font-bold text-blue-900">{activePackage}</p>
+            </div>
+          )}
+
           {/* Stats - Desktop */}
-          <div className="mt-8 mx-4 p-4 bg-blue-50 rounded-lg">
+          <div className="mt-6 mx-4 p-4 bg-blue-50 rounded-lg">
             <h3 className="text-sm font-semibold text-black mb-3">Application Status</h3>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
@@ -157,16 +217,32 @@ export default function DashboardLayout({
                   <Clock className="h-4 w-4 text-yellow-500 mr-2" />
                   <span className="text-xs text-black">In Progress</span>
                 </div>
-                <span className="text-xs font-semibold text-black">0</span>
+                <span className="text-xs font-semibold text-black">{applicationStats.inProgress}</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                   <span className="text-xs text-black">Completed</span>
                 </div>
-                <span className="text-xs font-semibold text-black">0</span>
+                <span className="text-xs font-semibold text-black">{applicationStats.completed}</span>
               </div>
             </div>
+          </div>
+
+          {/* Contact Us Section - Desktop */}
+          <div className="mt-6 mx-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2 mb-2">
+              <HelpCircle className="h-4 w-4 text-gray-600" />
+              <h3 className="text-sm font-semibold text-black">Need Help?</h3>
+            </div>
+            <p className="text-xs text-gray-600 mb-2">Contact our support team</p>
+            <a
+              href="mailto:team@myerasediting.com"
+              className="flex items-center gap-2 text-xs text-blue-600 hover:text-blue-700 font-medium"
+            >
+              <Mail className="h-3 w-3" />
+              team@myerasediting.com
+            </a>
           </div>
         </div>
 
@@ -215,6 +291,17 @@ export default function DashboardLayout({
                   ))}
                 </nav>
 
+                {/* Package Info - Mobile */}
+                {activePackage && (
+                  <div className="mt-6 mx-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Package className="h-4 w-4 text-blue-600" />
+                      <h3 className="text-sm font-semibold text-black">Active Package</h3>
+                    </div>
+                    <p className="text-sm font-bold text-blue-900">{activePackage}</p>
+                  </div>
+                )}
+
                 {/* Stats - Mobile */}
                 <div className="mt-6 mx-4 p-4 bg-blue-50 rounded-lg">
                   <h3 className="text-sm font-semibold text-black mb-3">Application Status</h3>
@@ -224,16 +311,32 @@ export default function DashboardLayout({
                         <Clock className="h-4 w-4 text-yellow-500 mr-2" />
                         <span className="text-xs text-black">In Progress</span>
                       </div>
-                      <span className="text-xs font-semibold text-black">0</span>
+                      <span className="text-xs font-semibold text-black">{applicationStats.inProgress}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
                         <span className="text-xs text-black">Completed</span>
                       </div>
-                      <span className="text-xs font-semibold text-black">0</span>
+                      <span className="text-xs font-semibold text-black">{applicationStats.completed}</span>
                     </div>
                   </div>
+                </div>
+
+                {/* Contact Us Section - Mobile */}
+                <div className="mt-6 mx-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center gap-2 mb-2">
+                    <HelpCircle className="h-4 w-4 text-gray-600" />
+                    <h3 className="text-sm font-semibold text-black">Need Help?</h3>
+                  </div>
+                  <p className="text-xs text-gray-600 mb-2">Contact our support team</p>
+                  <a
+                    href="mailto:team@myerasediting.com"
+                    className="flex items-center gap-2 text-xs text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    <Mail className="h-3 w-3" />
+                    team@myerasediting.com
+                  </a>
                 </div>
               </div>
             </div>
