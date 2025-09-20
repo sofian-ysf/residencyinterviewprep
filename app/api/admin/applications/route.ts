@@ -16,14 +16,15 @@ export async function GET(request: NextRequest) {
   try {
     const whereClause: any = {};
 
-    if (status) {
+    if (status && status !== 'all') {
       whereClause.status = status;
-    } else {
+    } else if (!status) {
       // Default to showing only in-review applications
       whereClause.status = {
         in: ['IN_REVIEW', 'SUBMITTED']
       };
     }
+    // If status === 'all', don't add any status filter
 
     if (userId) {
       whereClause.userId = userId;
