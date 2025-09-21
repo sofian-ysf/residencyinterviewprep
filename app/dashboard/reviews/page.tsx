@@ -189,7 +189,7 @@ export default function ReviewsPage() {
                         </div>
                       )}
                       {app.review?.editSummary && (
-                        <Edit className="h-3 w-3 text-blue-500" title="Has edits" />
+                        <Edit className="h-3 w-3 text-blue-500" />
                       )}
                     </div>
                     <span className="text-[10px] sm:text-xs text-gray-500">
