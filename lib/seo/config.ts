@@ -18,6 +18,8 @@ export const keywords = {
     "IMG ERAS application",
     "USMLE personal statement",
     "residency interview prep",
+    "residency interview coaching",
+    "mock interview residency",
     "NRMP match",
     "medical school to residency",
     "ERAS timeline",
@@ -36,7 +38,12 @@ export const keywords = {
     "personal statement editing for IMG",
     "ERAS application review cost",
     "physician ERAS application reviewer",
-    "ERAS application review turnaround time"
+    "ERAS application review turnaround time",
+    "residency interview coaching program directors",
+    "mock interview for residency match",
+    "best residency interview preparation course",
+    "ex program director interview coaching",
+    "residency interview coaching for IMG"
   ],
   specialties: [
     "internal medicine residency application",
@@ -220,6 +227,21 @@ export const pageSEO = {
     description: "Complete ERAS application timeline with all important dates, deadlines, and milestones. Never miss a deadline with our comprehensive residency application calendar.",
     keywords: ["ERAS timeline", "ERAS dates 2025", "residency application deadlines", "NRMP timeline", "match calendar"]
   },
+
+  interviewPrep: {
+    title: "Residency Interview Coaching by Ex-Program Directors - Mock Interviews & Expert Preparation",
+    description: "Master your residency interviews with personalized coaching from physicians who served on selection committees. Mock interviews, strategic preparation materials, and insider guidance. 97% match success rate.",
+    keywords: [
+      "residency interview coaching",
+      "mock interview residency",
+      "program director interview prep",
+      "residency interview preparation",
+      "medical residency interview coaching",
+      "IMG interview coaching",
+      "residency match interview prep",
+      "ex program director coaching"
+    ]
+  },
   
   specialties: {
     internal: {
@@ -253,7 +275,46 @@ export const richSnippets = {
       "addressCountry": "US"
     }
   },
-  
+
+  interviewCoaching: {
+    "@context": "https://schema.org",
+    "@type": "EducationalService",
+    "name": "Residency Interview Coaching",
+    "description": "Expert residency interview coaching by ex-program directors with mock interviews and personalized feedback",
+    "provider": {
+      "@type": "Organization",
+      "name": "MyERAS Editing"
+    },
+    "priceRange": "$500-$1500",
+    "educationalCredentialAwarded": "Interview Preparation Certificate",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "500",
+      "bestRating": "5"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Essential Interview Prep",
+        "price": "500",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Professional Interview Mastery",
+        "price": "1000",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Elite Interview Concierge",
+        "price": "1500",
+        "priceCurrency": "USD"
+      }
+    ]
+  },
+
   product: {
     "@context": "https://schema.org",
     "@type": "Product",

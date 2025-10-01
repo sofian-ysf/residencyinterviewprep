@@ -37,7 +37,7 @@ export const emailTemplates = {
           <div class="wrapper">
             <div class="container">
               <div class="header">
-                <h1>Welcome to ERAS Editing! 🎉</h1>
+                <h1>Welcome to ERAS Editing! </h1>
                 <p>Your journey to a perfect residency application starts here</p>
               </div>
               <div class="content">

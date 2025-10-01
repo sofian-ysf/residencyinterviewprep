@@ -5,8 +5,10 @@ import { prisma } from '@/lib/prisma';
 const getPriority = (path: string): number => {
   if (path === '/') return 1.0;
   if (path.includes('/pricing')) return 0.95;
+  if (path.includes('/services/interview-prep')) return 0.92;
   if (path.includes('/guides')) return 0.9;
   if (path.includes('/timeline')) return 0.9;
+  if (path.includes('/services')) return 0.88;
   if (path.includes('/blog') && !path.includes('/blog/')) return 0.85;
   if (path.includes('/specialties')) return 0.85;
   if (path.includes('/about')) return 0.8;
@@ -121,6 +123,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.85,
       images: [`${baseUrl}/og-letters.png`],
+    },
+    {
+      url: `${baseUrl}/services/interview-prep`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.92,
+      images: [`${baseUrl}/og-interview-prep.png`],
     },
   ];
 
