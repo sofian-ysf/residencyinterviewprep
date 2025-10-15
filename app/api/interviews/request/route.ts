@@ -185,22 +185,22 @@ export async function POST(req: NextRequest) {
     `;
 
     // Send both emails
-    const teamEmail = await sendEmail({
+    const teamEmailResult = await sendEmail({
       to: 'team@myerasediting.com',
       subject: `New Interview Request from ${userName}`,
       html: teamEmailHtml,
     });
 
-    const userEmail = await sendEmail({
+    const userEmailResult = await sendEmail({
       to: session.user.email!,
       subject: 'Interview Request Received - Residency Interview Prep',
       html: userConfirmationHtml,
     });
 
-    if (!teamEmail.success || !userEmail.success) {
+    if (!teamEmailResult.success || !userEmailResult.success) {
       console.error('Failed to send one or more emails:', {
-        teamEmail: teamEmail.success,
-        userEmail: userEmail.success,
+        teamEmail: teamEmailResult.success,
+        userEmail: userEmailResult.success,
       });
       return NextResponse.json(
         { error: 'Failed to send confirmation emails' },
