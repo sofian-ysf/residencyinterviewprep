@@ -7,12 +7,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import {
-  FileText,
-  Upload,
   User,
   LogOut,
   Home,
-  PenTool,
   Clock,
   CheckCircle,
   Menu,
@@ -32,9 +29,9 @@ export default function DashboardLayout({
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [applicationStats, setApplicationStats] = useState({
-    inProgress: 0,
-    completed: 0
+  const [interviewStats, setInterviewStats] = useState({
+    scheduled: 0,
+    remaining: 0
   });
   const [activePackage, setActivePackage] = useState<string | null>(null);
 
@@ -45,47 +42,29 @@ export default function DashboardLayout({
     }
   }, [session, status, router]);
 
-  // Fetch application stats
+  // Fetch interview stats
   useEffect(() => {
-    const fetchApplicationStats = async () => {
+    const fetchInterviewStats = async () => {
       if (session) {
         try {
-          // Fetch all applications (not just drafts)
-          const response = await fetch('/api/applications/submit');
-          if (response.ok) {
-            const applications = await response.json();
+          // TODO: Implement actual API endpoints for interview data
+          // Example endpoints needed:
+          // - GET /api/interviews/package - fetch user's interview package
+          // - GET /api/interviews/stats - fetch interview statistics
 
-            // Count applications by status
-            const stats = applications.reduce((acc: any, app: any) => {
-              if (app.status === 'DRAFT' || app.status === 'IN_REVIEW' || app.status === 'SUBMITTED') {
-                acc.inProgress++;
-              } else if (app.status === 'COMPLETED' || app.status === 'REVIEWED') {
-                acc.completed++;
-              }
-              return acc;
-            }, { inProgress: 0, completed: 0 });
-
-            setApplicationStats(stats);
-
-            // Get the most recent application's package type
-            if (applications.length > 0) {
-              const latestApp = applications[0];
-              const packageMap: { [key: string]: string } = {
-                'ESSENTIAL': 'Essential',
-                'COMPREHENSIVE': 'Comprehensive',
-                'PREMIUM': 'Premium',
-                'COMPLETE': 'Complete'
-              };
-              setActivePackage(packageMap[latestApp.packageType] || latestApp.packageType);
-            }
-          }
+          // For now, no data will be displayed until API is implemented
+          setActivePackage(null);
+          setInterviewStats({
+            scheduled: 0,
+            remaining: 0
+          });
         } catch (error) {
-          console.error('Error fetching application stats:', error);
+          console.error('Error fetching interview stats:', error);
         }
       }
     };
 
-    fetchApplicationStats();
+    fetchInterviewStats();
   }, [session, pathname]); // Refresh when pathname changes
 
   // Close mobile menu when route changes
@@ -107,9 +86,6 @@ export default function DashboardLayout({
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: Home },
-    { name: "My Applications", href: "/dashboard/applications", icon: FileText },
-    { name: "New Application", href: "/dashboard/new", icon: Upload },
-    { name: "Reviews", href: "/dashboard/reviews", icon: PenTool },
     { name: "Profile", href: "/dashboard/profile", icon: User },
   ];
 
@@ -141,16 +117,16 @@ export default function DashboardLayout({
               
               <Link href="/dashboard" className="flex items-center gap-2 sm:gap-3 ml-2 lg:ml-0">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 relative flex items-center justify-center">
-                  <Image 
-                    src="/logo2.png" 
-                    alt="MyERAS Reviewer Logo" 
+                  <Image
+                    src="/logo2.png"
+                    alt="Residency Interview Prep Logo"
                     width={32}
                     height={32}
                     className="object-contain"
                     priority
                   />
                 </div>
-                <span className="text-lg sm:text-xl font-bold text-black hidden sm:block">MyERAS Reviewer</span>
+                <span className="text-lg sm:text-xl font-bold text-black hidden sm:block">Residency Interview Prep</span>
               </Link>
             </div>
             
@@ -210,21 +186,21 @@ export default function DashboardLayout({
 
           {/* Stats - Desktop */}
           <div className="mt-6 mx-4 p-4 bg-blue-50 rounded-lg">
-            <h3 className="text-sm font-semibold text-black mb-3">Application Status</h3>
+            <h3 className="text-sm font-semibold text-black mb-3">Interview Status</h3>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <Clock className="h-4 w-4 text-yellow-500 mr-2" />
-                  <span className="text-xs text-black">In Progress</span>
+                  <span className="text-xs text-black">Scheduled</span>
                 </div>
-                <span className="text-xs font-semibold text-black">{applicationStats.inProgress}</span>
+                <span className="text-xs font-semibold text-black">{interviewStats.scheduled}</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  <span className="text-xs text-black">Completed</span>
+                  <span className="text-xs text-black">Remaining</span>
                 </div>
-                <span className="text-xs font-semibold text-black">{applicationStats.completed}</span>
+                <span className="text-xs font-semibold text-black">{interviewStats.remaining}</span>
               </div>
             </div>
           </div>
@@ -263,14 +239,14 @@ export default function DashboardLayout({
               
               <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                 <div className="flex-shrink-0 flex items-center px-4">
-                  <Image 
-                    src="/logo2.png" 
-                    alt="MyERAS Reviewer Logo" 
+                  <Image
+                    src="/logo2.png"
+                    alt="Residency Interview Prep Logo"
                     width={32}
                     height={32}
                     className="object-contain"
                   />
-                  <span className="ml-3 text-xl font-bold text-black">MyERAS</span>
+                  <span className="ml-3 text-xl font-bold text-black">Interview Prep</span>
                 </div>
                 
                 <nav className="mt-5 px-2 space-y-1">
@@ -304,21 +280,21 @@ export default function DashboardLayout({
 
                 {/* Stats - Mobile */}
                 <div className="mt-6 mx-4 p-4 bg-blue-50 rounded-lg">
-                  <h3 className="text-sm font-semibold text-black mb-3">Application Status</h3>
+                  <h3 className="text-sm font-semibold text-black mb-3">Interview Status</h3>
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         <Clock className="h-4 w-4 text-yellow-500 mr-2" />
-                        <span className="text-xs text-black">In Progress</span>
+                        <span className="text-xs text-black">Scheduled</span>
                       </div>
-                      <span className="text-xs font-semibold text-black">{applicationStats.inProgress}</span>
+                      <span className="text-xs font-semibold text-black">{interviewStats.scheduled}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                        <span className="text-xs text-black">Completed</span>
+                        <span className="text-xs text-black">Remaining</span>
                       </div>
-                      <span className="text-xs font-semibold text-black">{applicationStats.completed}</span>
+                      <span className="text-xs font-semibold text-black">{interviewStats.remaining}</span>
                     </div>
                   </div>
                 </div>

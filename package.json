@@ -1,8 +1,8 @@
 {
-  "name": "myeras-reviewer",
-  "displayName": "MyERAS Reviewer",
+  "name": "residency-interview-prep",
+  "displayName": "ResidencyInterviewPrep",
   "version": "0.1.0",
-  "description": "Expert ERAS application review service by physicians who successfully matched",
+  "description": "Expert residency interview preparation service with mock interviews and coaching by ex-program directors",
   "private": true,
   "scripts": {
     "dev": "next dev",

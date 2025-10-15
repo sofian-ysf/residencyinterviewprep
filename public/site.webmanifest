@@ -1,7 +1,7 @@
 {
-  "name": "MyERAS Editing",
-  "short_name": "MyERAS Editing",
-  "description": "Expert ERAS Application Review Service by Physicians Who Matched Successfully",
+  "name": "ResidencyInterviewPrep",
+  "short_name": "InterviewPrep",
+  "description": "Expert Residency Interview Coaching and Preparation by Ex-Program Directors",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

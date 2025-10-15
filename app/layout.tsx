@@ -18,24 +18,24 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "MyERAS Editing - Expert ERAS Application Review Service",
-  description: "Professional ERAS application review by physicians who successfully matched. Personal statements, CV optimization, experience descriptions. 95% match rate.",
-  applicationName: "MyERAS Editing",
-  metadataBase: new URL('https://www.myerasediting.com'),
+  title: "ResidencyInterviewPrep - Expert Residency Interview Coaching & Preparation",
+  description: "Master your residency interviews with expert coaching from ex-program directors. Mock interviews, personalized feedback, and proven strategies. 95% match rate.",
+  applicationName: "ResidencyInterviewPrep",
+  metadataBase: new URL('https://www.residencyinterviewprep.com'),
   
   // Open Graph metadata for social sharing
   openGraph: {
-    title: "MyERAS Editing",
-    description: "Expert ERAS application review by physicians who successfully matched. Personal statements, CV optimization, letters of recommendation. 95% match rate.",
-    url: "https://www.myerasediting.com",
-    siteName: "MyERAS Editing",
+    title: "ResidencyInterviewPrep",
+    description: "Master your residency interviews with expert coaching from ex-program directors. Mock interviews, personalized feedback, and proven strategies. 95% match rate.",
+    url: "https://www.residencyinterviewprep.com",
+    siteName: "ResidencyInterviewPrep",
     determiner: "the",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MyERAS Editing Logo",
+        alt: "ResidencyInterviewPrep Logo",
       },
     ],
     locale: "en_US",
@@ -45,11 +45,11 @@ export const metadata: Metadata = {
   // Twitter Card metadata
   twitter: {
     card: "summary_large_image",
-    title: "MyERAS Editing",
-    site: "@myerasreviewer",
-    creator: "@myerasreviewer",
-    description: "Expert ERAS application review by physicians. Personal statements, CV, letters of recommendation. 95% match rate.",
-    images: ["https://www.myerasediting.com/twitter-image.png"],
+    title: "ResidencyInterviewPrep",
+    site: "@residencyintprep",
+    creator: "@residencyintprep",
+    description: "Master your residency interviews with expert coaching. Mock interviews, personalized feedback, proven strategies. 95% match rate.",
+    images: ["https://www.residencyinterviewprep.com/twitter-image.png"],
   },
   
   // Icons configuration
@@ -85,17 +85,17 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 
   // Additional metadata for branding
-  keywords: ["MyERAS Editing", "MyERAS Editing", "ERAS application review", "residency personal statement", "ERAS CV review", "medical residency application", "ERAS experience descriptions", "letters of recommendation review"],
-  authors: [{ name: "MyERAS Editing Team", url: "https://www.myerasediting.com/about" }],
-  creator: "MyERAS Editing",
-  publisher: "MyERAS Editing",
+  keywords: ["ResidencyInterviewPrep", "residency interview preparation", "medical residency interview coaching", "mock interviews", "interview coaching", "ex-program directors", "residency match preparation", "medical interview prep"],
+  authors: [{ name: "ResidencyInterviewPrep Team", url: "https://www.residencyinterviewprep.com/about" }],
+  creator: "ResidencyInterviewPrep",
+  publisher: "ResidencyInterviewPrep",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   alternates: {
-    canonical: "https://www.myerasediting.com",
+    canonical: "https://www.residencyinterviewprep.com",
   },
   
   // Robots configuration

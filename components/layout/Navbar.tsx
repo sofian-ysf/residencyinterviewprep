@@ -27,17 +27,17 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 sm:gap-3">
               <div className="w-8 h-8 sm:w-10 sm:h-10 relative flex items-center justify-center">
-                <Image 
-                  src="/logo2.png" 
-                  alt="MyERAS Reviewer Logo" 
+                <Image
+                  src="/logo2.png"
+                  alt="ResidencyInterviewPrep Logo"
                   width={32}
                   height={32}
                   className="object-contain"
                   priority
                 />
               </div>
-              <span className="font-semibold text-base sm:text-lg text-black hidden sm:block">MyERAS Editing</span>
-              <span className="font-semibold text-base sm:text-lg text-black sm:hidden">MyERAS</span>
+              <span className="font-semibold text-base sm:text-lg text-black hidden sm:block">ResidencyInterviewPrep</span>
+              <span className="font-semibold text-base sm:text-lg text-black sm:hidden">InterviewPrep</span>
             </Link>
 
             {/* Center Navigation Links - Desktop */}

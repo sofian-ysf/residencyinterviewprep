@@ -6,23 +6,23 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">MyERAS Editing</h3>
-            <p className="text-sm text-gray-600">Expert ERAS application review and optimization services.</p>
+            <h3 className="font-semibold text-gray-900 mb-4">ResidencyInterviewPrep</h3>
+            <p className="text-sm text-gray-600">Expert residency interview coaching and preparation services.</p>
           </div>
           <div>
             <h4 className="font-medium text-gray-900 mb-4 text-sm">Services</h4>
             <ul className="space-y-3 text-sm text-gray-600">
-              <li><Link href="/services/personal-statement" className="hover:text-gray-900 transition-colors">Personal Statement</Link></li>
-              <li><Link href="/services/experiences" className="hover:text-gray-900 transition-colors">Experience Descriptions</Link></li>
-              <li><Link href="/services/letters" className="hover:text-gray-900 transition-colors">Letters of Recommendation</Link></li>
+              <li><Link href="/services/mock-interviews" className="hover:text-gray-900 transition-colors">Mock Interviews</Link></li>
+              <li><Link href="/services/interview-coaching" className="hover:text-gray-900 transition-colors">Interview Coaching</Link></li>
+              <li><Link href="/services/prep-booklets" className="hover:text-gray-900 transition-colors">Prep Booklets</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-medium text-gray-900 mb-4 text-sm">Resources</h4>
             <ul className="space-y-3 text-sm text-gray-600">
               <li><Link href="/blog" className="hover:text-gray-900 transition-colors">Blog</Link></li>
-              <li><Link href="/guides" className="hover:text-gray-900 transition-colors">Application Guides</Link></li>
-              <li><Link href="/timeline" className="hover:text-gray-900 transition-colors">ERAS Timeline</Link></li>
+              <li><Link href="/guides" className="hover:text-gray-900 transition-colors">Interview Guides</Link></li>
+              <li><Link href="/timeline" className="hover:text-gray-900 transition-colors">Interview Timeline</Link></li>
             </ul>
           </div>
           <div>
@@ -36,7 +36,7 @@ export default function Footer() {
         </div>
         <div className="pt-8 border-t border-gray-100">
           <p className="text-sm text-gray-600 text-center">
-            © 2025 MyERAS Editing. All rights reserved. HIPAA Compliant.
+            © 2025 ResidencyInterviewPrep. All rights reserved. HIPAA Compliant.
           </p>
         </div>
       </div>

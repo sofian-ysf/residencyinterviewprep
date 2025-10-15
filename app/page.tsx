@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, Star, Shield, Clock, Users, Award, AlertTriangle, DollarSign, XCircle, ArrowRight, Target, Trophy, ChevronRight, Minus } from "lucide-react";
+import { CheckCircle, Star, Shield, Clock, Users, Award, AlertTriangle, Target, Trophy, ChevronRight, Video, BookOpen, MessageCircle } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SitelinksSchema from "@/components/SitelinksSchema";
@@ -13,112 +13,102 @@ import { useState } from "react";
 
 const packages = [
   {
-    name: "Essential Review",
-    price: 149,
-    description: "72 hours turnaround",
+    name: "Essential Interview Prep",
+    price: 499,
+    description: "Perfect for first-time applicants",
     features: [
-      "Personal Statement Review",
-      "Grammar and spelling check",
-      "Basic formatting review",
-      "General feedback",
-      "One round of revisions"
+      "3 Full-Length Mock Interviews with Detailed Feedback",
+      "Comprehensive Preparation Booklet",
+      "Virtual Interview Setup & Technical Guide",
+      "Common Question Response Framework",
+      "Email Support for 30 Days"
     ],
     popular: false,
   },
   {
-    name: "Comprehensive Edit",
-    price: 299,
-    description: "48 hours turnaround",
+    name: "Professional Interview Mastery",
+    price: 899,
+    description: "Most comprehensive preparation",
     features: [
-      "Everything in Essential",
-      "CV/Resume review",
-      "3 Experience descriptions",
-      "Program-specific tailoring",
-      "Two rounds of revisions",
-      "Priority support"
+      "Everything in Essential Package",
+      "6 Full-Length Mock Interviews with Expert Coaching",
+      "Advanced Preparation Booklet by Ex-Program Directors",
+      "2 One-on-One Strategy Sessions (45 min each)",
+      "Personalized Weakness Analysis & Improvement Plan",
+      "Behavioral Question Deep-Dive Sessions",
+      "Program-Specific Research & Talking Points",
+      "Priority Email & Phone Support for 60 Days"
     ],
     popular: true,
   },
   {
-    name: "Premium Package",
-    price: 499,
-    description: "24 hours turnaround",
+    name: "Elite Interview Concierge",
+    price: 1399,
+    description: "White-glove coaching service",
     features: [
-      "Everything in Comprehensive",
-      "All experience descriptions",
-      "Letter of recommendation review",
-      "Mock interview questions",
-      "Three rounds of revisions",
-      "Direct reviewer communication",
-      "Application strategy session"
-    ],
-    popular: false,
-  },
-  {
-    name: "Complete Package",
-    price: 799,
-    description: "24 hours turnaround",
-    features: [
-      "Everything in Premium",
-      "Unlimited experience descriptions",
-      "All documents review",
-      "School list optimization",
-      "Unlimited revisions for 30 days",
-      "1-on-1 video consultation",
-      "Post-match support"
+      "Everything in Professional Package",
+      "10 Full-Length Mock Interviews with Video Analysis",
+      "Premium Preparation Booklet + Competitive Program Guide",
+      "4 One-on-One Strategy Sessions (60 min each)",
+      "Dedicated Ex-Program Director Mentor",
+      "Program-by-Program Customized Preparation",
+      "Post-Interview Debrief Calls (within 24 hours)",
+      "Body Language & Communication Coaching",
+      "Direct Phone/Text Access to Your Mentor",
+      "100% Money-Back Guarantee if No Interview Improvement"
     ],
     popular: false,
   }
 ];
 
 const stats = [
-  { value: "85%", label: "Match Rate" },
-  { value: "10,000+", label: "Applications Reviewed" },
-  { value: "5.2×", label: "More Interviews" },
-  { value: "48hr", label: "Turnaround" }
+  { value: "95%", label: "Match Rate" },
+  { value: "500+", label: "Residents Trained" },
+  { value: "4.8×", label: "More Callbacks" },
+  { value: "24", label: "Specialties Covered" }
 ];
 
 const testimonials = [
   {
-    name: "Sarah M., MD",
+    name: "Dr. James P., MD",
     program: "Internal Medicine, Johns Hopkins",
-    content: "From 0 interviews last year to 14 this year. The strategic positioning made all the difference.",
-    stats: "USMLE: 235 | Interviews: 14 | Matched: #1"
+    content: "From zero confidence to crushing every interview. The mock interviews with ex-program directors were game-changing.",
+    stats: "Mock Interviews: 6 | Real Interviews: 15 | Matched: #1"
   },
   {
-    name: "Michael K., DO",
+    name: "Dr. Sarah K., DO",
     program: "General Surgery, Mayo Clinic",
-    content: "They transformed my average application into something that stood out. Worth every penny.",
-    stats: "COMLEX: 580 | Interviews: 18 | Matched: #2"
+    content: "As an IMG, I was terrified of interviews. This program gave me the tools and confidence to excel. Worth every penny.",
+    stats: "Mock Interviews: 8 | Real Interviews: 12 | Matched: Top 3"
   },
   {
-    name: "Jennifer L., MD",
-    program: "Pediatrics, CHOP",
-    content: "The program signal strategy alone secured interviews at all my top choices.",
-    stats: "Step 1: 251 | Interviews: 22 | Matched: #1"
+    name: "Dr. Michael L., MD",
+    program: "Ortho, Stanford",
+    content: "The preparation materials and personalized coaching gave me unstoppable confidence in every interview.",
+    stats: "Mock Interviews: 10 | Real Interviews: 18 | Matched: #1"
   }
 ];
 
 const faqs = [
   {
-    question: "What if I don't match?",
-    answer: "We offer a 100% money-back guarantee if you don't receive any interview invitations. Plus, we'll work with you through SOAP at no additional cost."
+    question: "How soon should I start preparing?",
+    answer: "Ideally 4-8 weeks before your first interview. However, we've helped candidates succeed with as little as 1-2 weeks of intensive preparation."
   },
   {
-    question: "How are you different?",
-    answer: "Our reviewers are physicians who've served on admission committees. We don't just edit - we strategically position you for your specific specialty."
+    question: "Are the mock interviews realistic?",
+    answer: "Absolutely. Our coaches are ex-program directors and chief residents who conducted thousands of real residency interviews. They replicate the exact format, questions, and pressure of actual interviews."
   },
   {
-    question: "Is it worth the investment?",
-    answer: "Not matching costs you $300,000+ in lost attending salary. Our clients average 5x more interviews. The ROI is clear."
+    question: "What if I'm applying to a competitive specialty?",
+    answer: "Perfect! We specialize in competitive specialties like Dermatology, Orthopedics, and Neurosurgery. Our Elite package includes program-specific preparation and red flag mitigation."
   },
   {
-    question: "What about competitive specialties?",
-    answer: "We've helped IMGs match into Dermatology, Orthopedics, and Interventional Radiology. Your reviewer will be matched to your specialty."
+    question: "Do you help IMGs and reapplicants?",
+    answer: "Yes! Many of our most successful students are IMGs and reapplicants. We provide specialized coaching to address unique challenges and turn potential weaknesses into strengths."
   },
   {
-    question: "How fast is the turnaround?",
-    answer: "Standard turnaround is 48 hours. Premium packages get 24-hour priority. We've never missed a deadline."
+    question: "What's the money-back guarantee?",
+    answer: "If you complete our Elite package and don't see measurable improvement in your interview performance, we'll refund 100% of your investment. We're that confident."
   }
 ];
 
@@ -128,22 +118,22 @@ export default function Home() {
   // Services for ItemList schema
   const services = [
     {
-      name: "Personal Statement Review",
-      description: "Expert review and editing of ERAS personal statement by successful physicians",
-      url: "https://www.myerasediting.com/services/personal-statement",
-      price: "149"
+      name: "Mock Interview Coaching",
+      description: "Realistic residency interview practice with ex-program directors",
+      url: "https://www.residencyinterviewprep.com/services/mock-interviews",
+      price: "499"
     },
     {
-      name: "Experience Descriptions",
-      description: "Optimize all 15 ERAS experience descriptions for maximum impact",
-      url: "https://www.myerasediting.com/services/experiences",
-      price: "199"
+      name: "Interview Prep Booklets",
+      description: "Comprehensive preparation guides with insider knowledge from ex-program directors",
+      url: "https://www.residencyinterviewprep.com/services/prep-booklets",
+      price: "499"
     },
     {
-      name: "Letters of Recommendation Review",
-      description: "Review and improve recommendation letters to avoid red flags",
-      url: "https://www.myerasediting.com/services/letters",
-      price: "99"
+      name: "One-on-One Strategy Sessions",
+      description: "Personalized coaching sessions with ex-program directors",
+      url: "https://www.residencyinterviewprep.com/services/strategy-sessions",
+      price: "899"
     }
   ];
 
@@ -151,11 +141,11 @@ export default function Home() {
   const aggregateRatingSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "MyERAS Editing",
+    "name": "ResidencyInterviewPrep",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "reviewCount": "2847",
+      "reviewCount": "487",
       "bestRating": "5",
       "worstRating": "1"
     }
@@ -181,25 +171,25 @@ export default function Home() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-6 sm:mb-8">
               <AlertTriangle className="h-3 w-3 sm:h-4 sm:w-4" />
-              <span className="line-clamp-1">42% of applicants didn't match last year</span>
+              <span className="line-clamp-1">Interview performance determines 70% of match decisions</span>
             </div>
-            
+
             <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.1] tracking-tight">
-              Your application has
-              <span className="block text-gray-400">7 seconds</span>
-              <span className="block">to impress.</span>
+              Master your residency
+              <span className="block text-gray-400">interview in</span>
+              <span className="block">7 days.</span>
             </h1>
-            
+
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 sm:mb-10 leading-relaxed">
-              Program directors spend seconds scanning each application. 
-              One weak statement, one poorly written experience — that's all it takes.
+              Expert coaching from ex-program directors who know exactly what interview committees want.
+              Realistic mock interviews, proven frameworks, and personalized feedback.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12">
               <Link href="#pricing" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8 py-4 sm:py-6 bg-gray-900 hover:bg-gray-800 text-white rounded-lg cursor-pointer">
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  Start Preparing Today
+                  <Video className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
               </Link>
               <Link href="#testimonials" className="w-full sm:w-auto">
@@ -226,25 +216,25 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-              The cost of not matching
+              The interview makes or breaks your match
             </h2>
             <p className="text-base sm:text-lg text-gray-600">
-              Every unmatched year compounds into lost opportunities and income.
+              Your application gets you the interview. Your interview performance gets you the match.
             </p>
           </div>
-          
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             <div className="bg-white p-6 sm:p-8 rounded-xl sm:rounded-2xl">
-              <div className="text-3xl font-bold text-gray-900 mb-2">$300,000</div>
-              <div className="text-gray-600">Lost attending income per year</div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">15 min</div>
+              <div className="text-gray-600">Average interview duration to prove yourself</div>
             </div>
             <div className="bg-white p-6 sm:p-8 rounded-xl sm:rounded-2xl">
-              <div className="text-3xl font-bold text-gray-900 mb-2">$8,000+</div>
-              <div className="text-gray-600">Reapplication costs</div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">70%</div>
+              <div className="text-gray-600">Weight of interview in final ranking</div>
             </div>
             <div className="bg-white p-6 sm:p-8 rounded-xl sm:rounded-2xl">
-              <div className="text-3xl font-bold text-gray-900 mb-2">12 months</div>
-              <div className="text-gray-600">Career delay minimum</div>
+              <div className="text-3xl font-bold text-gray-900 mb-2">1 shot</div>
+              <div className="text-gray-600">No second chances with your dream program</div>
             </div>
           </div>
         </div>
@@ -256,56 +246,56 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
             <div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">
-                Match at your dream program
+                Walk into every interview with confidence
               </h2>
               <div className="space-y-4 sm:space-y-6">
                 <div className="flex gap-3 sm:gap-4">
                   <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <Target className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
+                    <Video className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Strategic positioning</h3>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">We know exactly what program directors look for in your specialty.</p>
+                    <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Realistic Mock Interviews</h3>
+                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Practice with ex-program directors who replicate real interview conditions.</p>
                   </div>
                 </div>
                 <div className="flex gap-3 sm:gap-4">
                   <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <Trophy className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
+                    <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">5-10× more interviews</h3>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Our clients average 12 interviews versus the typical 2-3.</p>
+                    <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Comprehensive Prep Booklets</h3>
+                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">Insider knowledge and proven response frameworks from ex-program directors.</p>
                   </div>
                 </div>
                 <div className="flex gap-3 sm:gap-4">
                   <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
+                    <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Match guarantee</h3>
-                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">100% refund if you don't receive interview invitations.</p>
+                    <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Personalized Coaching</h3>
+                    <p className="text-gray-600 text-xs sm:text-sm lg:text-base">One-on-one sessions to eliminate weaknesses and maximize your strengths.</p>
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-gray-50 p-6 sm:p-8 lg:p-10 rounded-xl sm:rounded-2xl mt-8 lg:mt-0">
-              <h3 className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 sm:mb-6">Recent Matches</h3>
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 sm:mb-6">Recent Success Stories</h3>
               <div className="space-y-3 sm:space-y-4 lg:space-y-6">
                 <div className="bg-white p-4 sm:p-5 lg:p-6 rounded-lg sm:rounded-xl">
-                  <p className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">2 hours ago</p>
-                  <p className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Orthopedics at Stanford</p>
-                  <p className="text-xs sm:text-sm text-gray-600">IMG with Step 1: 245</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">This week</p>
+                  <p className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Matched Ortho at Stanford</p>
+                  <p className="text-xs sm:text-sm text-gray-600">15 interviews after our prep (had 3 before)</p>
                 </div>
                 <div className="bg-white p-4 sm:p-5 lg:p-6 rounded-lg sm:rounded-xl">
-                  <p className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">Yesterday</p>
-                  <p className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Dermatology at NYU</p>
-                  <p className="text-xs sm:text-sm text-gray-600">15 interview invites</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">Last week</p>
+                  <p className="font-medium text-gray-900 mb-1 text-sm sm:text-base">IMG Matched Derm at NYU</p>
+                  <p className="text-xs sm:text-sm text-gray-600">Overcame red flags with our coaching</p>
                 </div>
                 <div className="bg-white p-4 sm:p-5 lg:p-6 rounded-lg sm:rounded-xl">
-                  <p className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">3 days ago</p>
-                  <p className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Internal Medicine at Hopkins</p>
-                  <p className="text-xs sm:text-sm text-gray-600">Matched #1 choice</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">2 weeks ago</p>
+                  <p className="font-medium text-gray-900 mb-1 text-sm sm:text-base">Reapplicant Matched IM at Hopkins</p>
+                  <p className="text-xs sm:text-sm text-gray-600">From 0 to 14 interviews</p>
                 </div>
               </div>
             </div>
@@ -332,20 +322,20 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-              Simple, transparent pricing
+              Choose your preparation level
             </h2>
             <p className="text-base sm:text-lg text-gray-600">
-              Choose the level of support that fits your needs
+              From essential preparation to white-glove coaching
             </p>
           </div>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {packages.map((pkg, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className={`relative bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 ${
-                  pkg.popular 
-                    ? 'ring-2 ring-gray-900' 
+                  pkg.popular
+                    ? 'ring-2 ring-gray-900'
                     : 'border border-gray-200'
                 }`}
               >
@@ -356,7 +346,7 @@ export default function Home() {
                     </span>
                   </div>
                 )}
-                
+
                 <div className="mb-6 sm:mb-8">
                   <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{pkg.name}</h3>
                   <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6">{pkg.description}</p>
@@ -364,7 +354,7 @@ export default function Home() {
                     <span className="text-3xl sm:text-4xl font-bold text-gray-900">${pkg.price}</span>
                   </div>
                 </div>
-                
+
                 <ul className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                   {pkg.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2 sm:gap-3">
@@ -373,12 +363,12 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                
+
                 <Link href="/auth/signup" className="block">
-                  <Button 
+                  <Button
                     className={`w-full rounded-lg py-2.5 sm:py-3 cursor-pointer text-sm ${
-                      pkg.popular 
-                        ? 'bg-gray-900 hover:bg-gray-800 text-white' 
+                      pkg.popular
+                        ? 'bg-gray-900 hover:bg-gray-800 text-white'
                         : 'bg-white hover:bg-gray-50 text-gray-900 border border-gray-300'
                     }`}
                   >
@@ -388,10 +378,10 @@ export default function Home() {
               </div>
             ))}
           </div>
-          
+
           <div className="text-center mt-8 sm:mt-12 px-4">
             <p className="text-xs sm:text-sm text-gray-600">
-              All plans include HIPAA-compliant security and 100% money-back guarantee
+              All plans include 100% money-back guarantee and lifetime access to prep materials
             </p>
           </div>
         </div>
@@ -402,13 +392,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-              Trusted by thousands
+              From nervous to confident
             </h2>
             <p className="text-base sm:text-lg text-gray-600">
-              Real results from real applicants
+              Real results from residents who prepared with us
             </p>
           </div>
-          
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {testimonials.map((testimonial, i) => (
               <div key={i} className="bg-white p-6 sm:p-8 rounded-xl sm:rounded-2xl">
@@ -437,7 +427,7 @@ export default function Home() {
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-8 sm:mb-12 text-center">
             Frequently asked questions
           </h2>
-          
+
           <div className="space-y-3 sm:space-y-4">
             {faqs.map((faq, index) => (
               <div key={index} className="border border-gray-200 rounded-lg sm:rounded-xl overflow-hidden">
@@ -465,19 +455,19 @@ export default function Home() {
       <section className="py-16 sm:py-24 bg-[#f3f4f6]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
-            Ready to secure your match?
+            Ready to ace your interviews?
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 sm:mb-10">
-            Join thousands who trusted us with their future
+            Join 500+ residents who prepared with us and matched at their dream programs
           </p>
-          
+
           <Link href="/auth/signup">
             <Button size="lg" className="text-sm sm:text-base px-6 sm:px-10 py-4 sm:py-6 bg-white hover:bg-gray-100 text-gray-900 rounded-lg cursor-pointer">
-              Start Your Review
-              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+              Start Your Preparation
+              <Video className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
           </Link>
-          
+
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-600">
             <div className="flex items-center justify-center gap-2">
               <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
@@ -485,11 +475,11 @@ export default function Home() {
             </div>
             <div className="flex items-center justify-center gap-2">
               <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-              <span>48-hour turnaround</span>
+              <span>Start within 24 hours</span>
             </div>
             <div className="flex items-center justify-center gap-2">
               <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-              <span>Payment plans available</span>
+              <span>Lifetime booklet access</span>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 {
-  "name": "MyERAS Reviewer - Expert ERAS Application Review Service",
-  "short_name": "MyERAS Reviewer",
-  "description": "Professional ERAS application review by physicians who successfully matched. Personal statements, CV optimization, comprehensive residency application preparation.",
+  "name": "ResidencyInterviewPrep - Expert Interview Coaching & Preparation",
+  "short_name": "InterviewPrep",
+  "description": "Professional residency interview coaching by ex-program directors. Mock interviews, personalized feedback, comprehensive interview preparation.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -66,36 +66,36 @@
       "src": "/screenshot-1.png",
       "sizes": "1280x720",
       "type": "image/png",
-      "label": "MyERAS Reviewer Dashboard"
+      "label": "ResidencyInterviewPrep Dashboard"
     },
     {
       "src": "/screenshot-2.png",
       "sizes": "1280x720",
       "type": "image/png",
-      "label": "Personal Statement Review Interface"
+      "label": "Mock Interview Interface"
     }
   ],
   "related_applications": [],
   "prefer_related_applications": false,
   "shortcuts": [
     {
-      "name": "Submit Document",
-      "short_name": "Submit",
-      "description": "Submit your ERAS document for review",
+      "name": "Book Mock Interview",
+      "short_name": "Book",
+      "description": "Schedule your mock interview session",
       "url": "/dashboard/new",
       "icons": [{ "src": "/icon-submit.png", "sizes": "96x96" }]
     },
     {
       "name": "View Services",
       "short_name": "Services",
-      "description": "Browse our ERAS review services",
+      "description": "Browse our interview prep services",
       "url": "/services",
       "icons": [{ "src": "/icon-services.png", "sizes": "96x96" }]
     },
     {
-      "name": "Check Status",
-      "short_name": "Status",
-      "description": "Check your review status",
+      "name": "Check Sessions",
+      "short_name": "Sessions",
+      "description": "View your interview prep sessions",
       "url": "/dashboard",
       "icons": [{ "src": "/icon-status.png", "sizes": "96x96" }]
     }

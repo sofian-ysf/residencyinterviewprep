@@ -45,20 +45,19 @@ export default function InterviewPrepContent() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:32px_32px]"></div>
+      <section className="relative bg-[#f3f4f6] py-20 overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-6">
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 bg-blue-800/50 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <Trophy className="h-4 w-4 text-yellow-400" />
-              <span className="text-sm font-medium">Curated by Ex-Program Directors</span>
+            <div className="inline-flex items-center gap-2 bg-blue-100 px-4 py-2 rounded-full mb-6">
+              <Trophy className="h-4 w-4 text-blue-600" />
+              <span className="text-sm font-medium text-gray-900">Curated by Ex-Program Directors</span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-5xl sm:text-6xl font-bold mb-6 leading-tight text-gray-900">
               Master Your Residency Interviews with Expert Coaching
             </h1>
 
-            <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-700 mb-8 leading-relaxed">
               Get personalized mock interviews, strategic coaching, and insider preparation materials
               created by physicians who have sat on residency selection committees. Transform your
               interview performance and secure your dream match.
@@ -66,21 +65,21 @@ export default function InterviewPrepContent() {
 
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-              <div className="bg-blue-800/30 backdrop-blur-sm rounded-xl p-4 border border-blue-700/50">
-                <div className="text-3xl font-bold text-yellow-400 mb-1">5.8x</div>
-                <div className="text-sm text-blue-100">More Interview Invites</div>
+              <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+                <div className="text-3xl font-bold text-blue-600 mb-1">5.8x</div>
+                <div className="text-sm text-gray-600">More Interview Invites</div>
               </div>
-              <div className="bg-blue-800/30 backdrop-blur-sm rounded-xl p-4 border border-blue-700/50">
-                <div className="text-3xl font-bold text-yellow-400 mb-1">97%</div>
-                <div className="text-sm text-blue-100">Match Success Rate</div>
+              <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+                <div className="text-3xl font-bold text-blue-600 mb-1">97%</div>
+                <div className="text-sm text-gray-600">Match Success Rate</div>
               </div>
-              <div className="bg-blue-800/30 backdrop-blur-sm rounded-xl p-4 border border-blue-700/50">
-                <div className="text-3xl font-bold text-yellow-400 mb-1">500+</div>
-                <div className="text-sm text-blue-100">Students Coached</div>
+              <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+                <div className="text-3xl font-bold text-blue-600 mb-1">500+</div>
+                <div className="text-sm text-gray-600">Students Coached</div>
               </div>
-              <div className="bg-blue-800/30 backdrop-blur-sm rounded-xl p-4 border border-blue-700/50">
-                <div className="text-3xl font-bold text-yellow-400 mb-1">15+</div>
-                <div className="text-sm text-blue-100">Program Directors</div>
+              <div className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+                <div className="text-3xl font-bold text-blue-600 mb-1">15+</div>
+                <div className="text-sm text-gray-600">Program Directors</div>
               </div>
             </div>
 
@@ -90,14 +89,14 @@ export default function InterviewPrepContent() {
                   const packagesSection = document.getElementById('packages');
                   packagesSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-8 py-4 bg-white text-blue-900 rounded-lg font-semibold hover:bg-blue-50 transition-all shadow-xl flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-all shadow-lg flex items-center justify-center gap-2"
               >
                 View Packages
                 <ArrowRight className="h-5 w-5" />
               </button>
               <Link
                 href="/guides/interview-prep"
-                className="px-8 py-4 bg-blue-800/50 backdrop-blur-sm border-2 border-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700/50 transition-all flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-white border-2 border-gray-300 text-gray-900 rounded-lg font-semibold hover:bg-gray-50 transition-all flex items-center justify-center gap-2"
               >
                 <BookOpen className="h-5 w-5" />
                 Free Interview Guide
@@ -169,7 +168,7 @@ export default function InterviewPrepContent() {
               </h3>
               <p className="text-gray-600 leading-relaxed">
                 Access our comprehensive preparation booklet created by ex-program directors, featuring
-                200+ real interview questions and proven response frameworks.
+                proven response frameworks and strategies for common interview scenarios.
               </p>
             </div>
 
@@ -328,7 +327,7 @@ export default function InterviewPrepContent() {
               {
                 step: '2',
                 title: 'Study Materials',
-                description: 'Receive our exclusive preparation booklet with 200+ real questions and proven response frameworks.',
+                description: 'Receive our exclusive preparation booklet with proven response frameworks and strategic interview techniques.',
                 icon: BookOpen,
               },
               {
@@ -390,7 +389,7 @@ export default function InterviewPrepContent() {
                 name: 'Priya K.',
                 specialty: 'Dermatology',
                 result: 'Matched at Stanford',
-                quote: 'The preparation booklet alone was worth the investment. But the unlimited mock interviews in the Elite package gave me the practice I needed for a competitive specialty.',
+                quote: 'The preparation booklet and personalized coaching were invaluable. The mock interviews in the Elite package gave me the practice I needed for a competitive specialty.',
                 rating: 5,
               },
             ].map((testimonial, idx) => (
@@ -460,12 +459,12 @@ export default function InterviewPrepContent() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 text-white">
+      <section className="py-20 bg-[#f3f4f6]">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-4xl font-bold mb-4 text-gray-900">
             Ready to Ace Your Residency Interviews?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
             Join hundreds of successful applicants who transformed their interview skills
             and matched into their dream programs.
           </p>
@@ -476,21 +475,21 @@ export default function InterviewPrepContent() {
                 const packagesSection = document.getElementById('packages');
                 packagesSection?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-8 py-4 bg-white text-blue-900 rounded-lg font-semibold hover:bg-blue-50 transition-all shadow-xl inline-flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-all shadow-lg inline-flex items-center justify-center gap-2"
             >
               <Trophy className="h-5 w-5" />
               Start Your Preparation
             </button>
             <Link
               href="/contact"
-              className="px-8 py-4 bg-blue-800/50 backdrop-blur-sm border-2 border-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700/50 transition-all inline-flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-white border-2 border-gray-300 text-gray-900 rounded-lg font-semibold hover:bg-gray-50 transition-all inline-flex items-center justify-center gap-2"
             >
               <MessageSquare className="h-5 w-5" />
               Talk to a Coach
             </Link>
           </div>
 
-          <p className="mt-8 text-sm text-blue-200">
+          <p className="mt-8 text-sm text-gray-600">
             <Clock className="inline h-4 w-4 mr-1" />
             Limited spots available each month to ensure personalized attention
           </p>

@@ -3,10 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Mail,
-  Phone,
   MessageSquare,
   Clock,
-  MapPin,
   Send,
   CheckCircle,
   HelpCircle,
@@ -48,14 +46,6 @@ const contactMethods = [
     description: "Instant assistance",
     detail: "Available 9 AM - 11 PM EST",
     responseTime: "< 2 minutes",
-    preferred: false
-  },
-  {
-    icon: Phone,
-    title: "Phone Support",
-    description: "Speak with our team",
-    detail: "1-800-ERAS-HELP",
-    responseTime: "Business hours",
     preferred: false
   }
 ];
@@ -105,12 +95,10 @@ export default function ContactPage() {
       "contactPoint": [
         {
           "@type": "ContactPoint",
-          "telephone": "+1-800-372-7435",
           "contactType": "Customer Service",
           "email": "support@myerasediting.com",
           "availableLanguage": ["English", "Spanish"],
           "areaServed": "US",
-          "contactOption": ["TollFree", "HearingImpairedSupported"],
           "hoursAvailable": {
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": [
@@ -128,7 +116,6 @@ export default function ContactPage() {
         },
         {
           "@type": "ContactPoint",
-          "telephone": "+1-800-372-7435",
           "contactType": "Technical Support",
           "email": "tech@myerasediting.com",
           "availableLanguage": "English",
@@ -136,7 +123,6 @@ export default function ContactPage() {
         },
         {
           "@type": "ContactPoint",
-          "telephone": "+1-800-372-7435",
           "contactType": "Billing Support",
           "email": "billing@myerasediting.com",
           "availableLanguage": "English",
@@ -200,7 +186,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
             {contactMethods.map((method, index) => (
               <Card
                 key={index}
@@ -408,58 +394,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Office Information */}
-      <section className="py-16 sm:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Visit Our Office
-              </h2>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <MapPin className="h-5 w-5 text-gray-600 mt-1" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Main Office</p>
-                    <p className="text-gray-600">
-                      123 Medical Plaza, Suite 500<br />
-                      Boston, MA 02115<br />
-                      United States
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Clock className="h-5 w-5 text-gray-600 mt-1" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Office Hours</p>
-                    <p className="text-gray-600">
-                      Monday - Friday: 9:00 AM - 6:00 PM EST<br />
-                      Saturday: 10:00 AM - 4:00 PM EST<br />
-                      Sunday: Emergency support only
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Phone className="h-5 w-5 text-gray-600 mt-1" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Phone Numbers</p>
-                    <p className="text-gray-600">
-                      Main: 1-800-ERAS-HELP (1-800-372-7435)<br />
-                      International: +1-617-555-0123<br />
-                      WhatsApp: +1-617-555-0124
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gray-100 rounded-2xl h-96 flex items-center justify-center">
-              <p className="text-gray-500">Interactive Map</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-16 sm:py-24 bg-gradient-to-r from-gray-900 to-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -470,17 +404,11 @@ export default function ContactPage() {
             Don't let questions delay your application. Get answers now.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <a href="mailto:support@myerasediting.com">
               <Button size="lg" className="bg-white text-gray-900 hover:bg-gray-100">
                 Email Us Now
                 <Mail className="ml-2 h-5 w-5" />
-              </Button>
-            </a>
-            <a href="tel:18003727435">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                Call 1-800-ERAS-HELP
-                <Phone className="ml-2 h-5 w-5" />
               </Button>
             </a>
           </div>
