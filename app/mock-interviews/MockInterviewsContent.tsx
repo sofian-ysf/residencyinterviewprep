@@ -6,6 +6,7 @@ import { CheckCircle, Star, Clock, Users, Award, Video, BookOpen, MessageCircle,
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FAQSection from "@/components/seo/FAQSection";
+import RelatedInterviewLinks from "@/components/RelatedInterviewLinks";
 import Script from "next/script";
 
 const mockInterviewFAQs = [
