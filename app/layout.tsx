@@ -18,15 +18,15 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "ResidencyInterviewPrep - Expert Residency Interview Coaching & Preparation",
-  description: "Master your residency interviews with expert coaching from ex-program directors. Mock interviews, personalized feedback, and proven strategies. 95% match rate.",
+  title: "Mock Interviews & Residency Interview Coaching | Ex-Program Directors | 95% Match Rate",
+  description: "Master your residency interviews with realistic mock interviews and expert coaching from ex-program directors who conducted 1,000+ interviews. Personalized feedback, proven techniques, and comprehensive preparation. 95% match rate. Virtual sessions available. Packages from $499.",
   applicationName: "ResidencyInterviewPrep",
   metadataBase: new URL('https://www.residencyinterviewprep.com'),
   
   // Open Graph metadata for social sharing
   openGraph: {
-    title: "ResidencyInterviewPrep",
-    description: "Master your residency interviews with expert coaching from ex-program directors. Mock interviews, personalized feedback, and proven strategies. 95% match rate.",
+    title: "Mock Interviews & Residency Interview Coaching by Ex-Program Directors",
+    description: "Master your residency interviews with realistic mock interviews and expert coaching. Led by ex-program directors. Personalized feedback and proven techniques. 95% match rate.",
     url: "https://www.residencyinterviewprep.com",
     siteName: "ResidencyInterviewPrep",
     determiner: "the",
@@ -45,10 +45,10 @@ export const metadata: Metadata = {
   // Twitter Card metadata
   twitter: {
     card: "summary_large_image",
-    title: "ResidencyInterviewPrep",
+    title: "Mock Interviews & Residency Interview Coaching",
     site: "@residencyintprep",
     creator: "@residencyintprep",
-    description: "Master your residency interviews with expert coaching. Mock interviews, personalized feedback, proven strategies. 95% match rate.",
+    description: "Master your residency interviews with realistic mock interviews by ex-program directors. 95% match rate. Virtual sessions available.",
     images: ["https://www.residencyinterviewprep.com/twitter-image.png"],
   },
   
@@ -85,7 +85,30 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 
   // Additional metadata for branding
-  keywords: ["ResidencyInterviewPrep", "residency interview preparation", "medical residency interview coaching", "mock interviews", "interview coaching", "ex-program directors", "residency match preparation", "medical interview prep"],
+  keywords: [
+    "mock interview residency",
+    "residency mock interviews",
+    "residency interview coaching",
+    "medical residency interview preparation",
+    "program director interview coaching",
+    "ex program director coaching",
+    "virtual mock interviews",
+    "IMG interview coaching",
+    "residency interview practice",
+    "mock interview medical residency",
+    "residency match interview prep",
+    "online residency mock interviews",
+    "best residency interview coaching",
+    "residency interview tips",
+    "medical interview coaching",
+    "ERAS interview preparation",
+    "residency interview questions",
+    "how to prepare for residency interview",
+    "competitive specialty interview prep",
+    "dermatology interview coaching",
+    "surgery interview prep",
+    "internal medicine interview coaching"
+  ],
   authors: [{ name: "ResidencyInterviewPrep Team", url: "https://www.residencyinterviewprep.com/about" }],
   creator: "ResidencyInterviewPrep",
   publisher: "ResidencyInterviewPrep",

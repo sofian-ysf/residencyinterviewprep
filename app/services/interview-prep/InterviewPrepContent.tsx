@@ -106,6 +106,63 @@ export default function InterviewPrepContent() {
         </div>
       </section>
 
+      {/* Who This Is For */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              Who Benefits from Our Interview Coaching?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Our comprehensive coaching program is designed for diverse applicants at different stages
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">International Medical Graduates (IMGs)</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                IMGs face unique challenges: explaining your medical education, addressing visa questions,
+                demonstrating cultural fit, and overcoming potential communication barriers. Our IMG-specialized
+                coaches have helped hundreds of international graduates navigate these challenges and match into
+                top programs. We understand the unique pressures IMGs face and provide targeted strategies to
+                turn potential weaknesses into compelling strengths.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Applicants with Red Flags</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Failed Step exams? Gap years? Reapplying? Professionalism concerns? These red flags require
+                careful, strategic responses. Our coaches specialize in red flag mitigation and have successfully
+                helped candidates with challenging applications match into competitive programs. We teach you how
+                to address concerns honestly while reframing them positively and demonstrating growth.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Competitive Specialty Applicants</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Applying to Dermatology, Orthopedics, Neurosurgery, or other competitive fields? Interview
+                performance is even more critical when competition is fierce. Our coaches from competitive
+                specialties understand what separates ranked candidates from wait-listed ones. Every small
+                mistake matters - we help you polish your performance to perfection.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">First-Time Interviewers & Anxious Applicants</h3>
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Interview anxiety is real and can sabotage even strong applicants. If you struggle with public
+                speaking, feel nervous under pressure, or simply want to maximize your performance, our coaching
+                builds genuine confidence. Through repeated practice in realistic conditions, you'll desensitize
+                yourself to interview stress and develop natural, authentic responses.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
@@ -303,6 +360,245 @@ export default function InterviewPrepContent() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Common Mistakes */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              10 Common Interview Mistakes That Cost Candidates Their Top Programs
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Avoid these critical errors that program directors see repeatedly. Our coaching eliminates these mistakes before your real interviews.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              {
+                mistake: "Generic, Rehearsed Answers",
+                explanation: "Candidates who sound scripted or give cookie-cutter responses fail to connect authentically. Programs want genuine enthusiasm, not memorized speeches. We teach you frameworks, not scripts, so your answers feel natural while remaining strategic."
+              },
+              {
+                mistake: "Failing to Research the Program",
+                explanation: "Saying 'I don't know much about your program' is an instant red flag. Programs expect you to know their mission, faculty research, unique features, and recent achievements. We help you research effectively and develop specific talking points for each program."
+              },
+              {
+                mistake: "Poor Body Language & Eye Contact",
+                explanation: "Fidgeting, avoiding eye contact, or appearing disengaged sabotages even strong verbal responses. In virtual interviews, staring at the screen instead of the camera breaks connection. We analyze your body language through video review and provide specific corrections."
+              },
+              {
+                mistake: "Rambling or Off-Topic Responses",
+                explanation: "Long-winded answers that meander lose evaluators' attention. Concise, structured responses show clear thinking. We train you to answer questions in 60-90 seconds, hitting key points without rambling or going off-topic."
+              },
+              {
+                mistake: "Defensive Red Flag Responses",
+                explanation: "Getting defensive about failed exams, gaps, or weaknesses raises more concerns. Programs want candidates who take ownership, show growth, and demonstrate self-awareness. Our coaches perfect your red flag responses to turn weaknesses into demonstrations of resilience."
+              },
+              {
+                mistake: "Asking Poor or No Questions",
+                explanation: "Asking 'What's the call schedule?' or having no questions signals lack of genuine interest. Thoughtful questions demonstrate engagement and help you evaluate programs. We prepare 15+ excellent questions tailored to different interviewers (faculty, residents, PD)."
+              },
+              {
+                mistake: "Badmouthing Other Programs or Specialties",
+                explanation: "Speaking negatively about other programs, specialties, or medical schools reflects poorly on your professionalism. Even subtle negativity is a red flag. We teach you to explain your choices positively without disparaging alternatives."
+              },
+              {
+                mistake: "Failing to Connect Your Story to the Specialty",
+                explanation: "Generic statements like 'I love helping people' work for any specialty. Programs want to hear specific reasons WHY their specialty resonates with you, backed by experiences. We help you craft a compelling narrative unique to your specialty choice."
+              },
+              {
+                mistake: "Appearing Overconfident or Arrogant",
+                explanation: "Confidence is good; arrogance is disastrous. Talking down to interviewers, dismissing feedback, or seeming entitled turns programs off immediately. We calibrate your confidence level - assured but humble, accomplished but eager to learn."
+              },
+              {
+                mistake: "Poor Virtual Interview Setup",
+                explanation: "Bad lighting, messy backgrounds, technical issues, or unprofessional attire in virtual interviews creates negative impressions. We review your tech setup, lighting, camera angle, and virtual presence to ensure you present professionally."
+              }
+            ].map((item, idx) => (
+              <div key={idx} className="bg-gray-50 rounded-xl p-6 border-l-4 border-red-500">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                    <span className="text-red-600 font-bold text-sm">{idx + 1}</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900">{item.mistake}</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed ml-11">{item.explanation}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl p-8 border border-red-200 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+              Don't Let Avoidable Mistakes Cost You Your Dream Program
+            </h3>
+            <p className="text-gray-700 leading-relaxed text-center mb-6">
+              Every year, strong candidates with excellent applications fail to match because of poor interview
+              performance. The mistakes above are 100% preventable with proper preparation. Our mock interviews
+              identify YOUR specific weaknesses and eliminate them before they cost you a match.
+            </p>
+            <div className="text-center">
+              <button
+                onClick={() => {
+                  const packagesSection = document.getElementById('packages');
+                  packagesSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-8 py-4 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-all shadow-lg inline-flex items-center gap-2"
+              >
+                Fix These Mistakes Now
+                <ArrowRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What You'll Master */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              What You'll Master Through Our Coaching
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Comprehensive skills development that transforms nervous candidates into confident interviewers
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                category: "Communication Excellence",
+                skills: [
+                  "Structure clear, concise responses in 60-90 seconds",
+                  "Use the STAR method for behavioral questions",
+                  "Demonstrate active listening and engagement",
+                  "Master verbal and non-verbal communication",
+                  "Adapt communication style to different interviewers",
+                  "Handle unexpected or curveball questions gracefully"
+                ]
+              },
+              {
+                category: "Strategic Content Development",
+                skills: [
+                  "Craft compelling personal narratives",
+                  "Articulate specialty choice authentically",
+                  "Demonstrate program-specific interest",
+                  "Address red flags strategically",
+                  "Showcase clinical knowledge appropriately",
+                  "Connect experiences to program missions"
+                ]
+              },
+              {
+                category: "Confidence & Presence",
+                skills: [
+                  "Manage interview anxiety effectively",
+                  "Project confidence without arrogance",
+                  "Maintain appropriate body language and eye contact",
+                  "Recover quickly from mistakes",
+                  "Stay calm under pressure",
+                  "Build genuine rapport with interviewers"
+                ]
+              }
+            ].map((category, idx) => (
+              <div key={idx} className="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{category.category}</h3>
+                <ul className="space-y-3">
+                  {category.skills.map((skill, skillIdx) => (
+                    <li key={skillIdx} className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-600 text-sm">{skill}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* When to Start */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+              When Should You Start Interview Preparation?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              The ideal timeline for interview coaching depends on your situation
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-8 border-2 border-green-200">
+              <div className="text-center mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-green-600 rounded-full text-white text-2xl font-bold mb-2">
+                  ✓
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">Ideal: 6-8 Weeks Before</h3>
+                <p className="text-green-700 font-medium">Best Results</p>
+              </div>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Starting 6-8 weeks before your first interview allows time for 4-6 mock interviews spaced out,
+                with practice and refinement between sessions. This timeline produces the best results and lowest stress.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>• Multiple mock interview rounds</li>
+                <li>• Time to implement feedback</li>
+                <li>• Gradual confidence building</li>
+                <li>• Program-specific preparation</li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-8 border-2 border-yellow-300">
+              <div className="text-center mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-600 rounded-full text-white text-2xl font-bold mb-2">
+                  !
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">Acceptable: 2-4 Weeks Before</h3>
+                <p className="text-yellow-700 font-medium">Still Effective</p>
+              </div>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                With 2-4 weeks, you can still complete 2-3 quality mock interviews and see significant improvement.
+                Requires more intensive preparation but definitely worthwhile.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>• Focused intensive practice</li>
+                <li>• Essential skills coverage</li>
+                <li>• Targeted weakness correction</li>
+                <li>• Rapid confidence boost</li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-xl p-8 border-2 border-red-300">
+              <div className="text-center mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-red-600 rounded-full text-white text-2xl font-bold mb-2">
+                  ⚡
+                </div>
+                <h3 className="text-xl font-bold text-gray-900">Urgent: 1 Week or Less</h3>
+                <p className="text-red-700 font-medium">Better Than Nothing</p>
+              </div>
+              <p className="text-gray-700 leading-relaxed mb-4">
+                Even with just days before interviews, one intensive mock interview session can identify critical
+                mistakes and provide strategies. Many students report this still makes a meaningful difference.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>• Crash course essentials</li>
+                <li>• Critical mistake identification</li>
+                <li>• Confidence boost before D-day</li>
+                <li>• Quick-win strategies</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+              <strong className="text-gray-900">Bottom line:</strong> It's never too early or too late to start.
+              The sooner you begin, the more polish you can add. But even last-minute prep beats no prep.
+            </p>
           </div>
         </div>
       </section>

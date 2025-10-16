@@ -176,19 +176,19 @@ export default function Home() {
 
             <h1 className="text-3xl sm:text-5xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.1] tracking-tight">
               Master your residency
-              <span className="block text-gray-400">interview in</span>
-              <span className="block">7 days.</span>
+              <span className="block text-gray-400">interviews with</span>
+              <span className="block">expert mock interviews.</span>
             </h1>
 
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 sm:mb-10 leading-relaxed">
-              Expert coaching from ex-program directors who know exactly what interview committees want.
-              Realistic mock interviews, proven frameworks, and personalized feedback.
+              Practice with ex-program directors who conducted 1,000+ real residency interviews.
+              Realistic simulations, personalized feedback, and proven techniques. 95% match rate.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-12">
-              <Link href="#pricing" className="w-full sm:w-auto">
+              <Link href="/mock-interviews" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto text-sm sm:text-base px-6 sm:px-8 py-4 sm:py-6 bg-gray-900 hover:bg-gray-800 text-white rounded-lg cursor-pointer">
-                  Start Preparing Today
+                  View Mock Interview Packages
                   <Video className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
               </Link>

@@ -53,7 +53,7 @@ export default function SignIn() {
                 Welcome back
               </h1>
               <p className="text-black">
-                Sign in to continue your MyERAS Review
+                Sign in to continue your interview preparation
               </p>
             </div>
 

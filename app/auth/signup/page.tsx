@@ -174,7 +174,7 @@ export default function SignUp() {
                 Create your account
               </h1>
               <p className="text-black">
-                Join thousands getting expert MyERAS Reviews
+                Join thousands mastering their residency interviews
               </p>
             </div>
 

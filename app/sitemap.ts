@@ -101,6 +101,64 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  // Interview pages (high priority)
+  const interviewPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/mock-interviews`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.95,
+      images: [`${baseUrl}/og-mock-interviews.png`],
+    },
+    {
+      url: `${baseUrl}/interview-questions`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.93,
+    },
+    {
+      url: `${baseUrl}/services/interview-prep`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.92,
+      images: [`${baseUrl}/og-interview-prep.png`],
+    },
+  ];
+
+  // Specialty-specific interview pages
+  const specialtyInterviewPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/interview-prep/internal-medicine`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/interview-prep/surgery`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/interview-prep/pediatrics`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/interview-prep/emergency-medicine`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/interview-prep/psychiatry`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+  ];
+
   // Service pages that exist
   const servicePages: MetadataRoute.Sitemap = [
     {
@@ -123,13 +181,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.85,
       images: [`${baseUrl}/og-letters.png`],
-    },
-    {
-      url: `${baseUrl}/services/interview-prep`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.92,
-      images: [`${baseUrl}/og-interview-prep.png`],
     },
   ];
 
@@ -194,13 +245,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Combine only pages that actually exist
   return [
-    ...corePages,      // Home, pricing, guides, timeline, blog
-    ...servicePages,   // 3 service pages
-    ...guidePages,     // 6 guide subpages
-    ...infoPages,      // About page
-    ...authPages,      // Sign in/up pages
-    ...legalPages,     // Privacy, terms
-    ...blogPosts,      // Dynamic blog posts from database
+    ...corePages,                // Home, pricing, guides, timeline, blog
+    ...interviewPages,           // Mock interviews & interview prep (high priority)
+    ...specialtyInterviewPages,  // 5 specialty interview pages
+    ...servicePages,             // 3 service pages
+    ...guidePages,               // 6 guide subpages
+    ...infoPages,                // About page
+    ...authPages,                // Sign in/up pages
+    ...legalPages,               // Privacy, terms
+    ...blogPosts,                // Dynamic blog posts from database
   ];
 }
 
