@@ -35,7 +35,7 @@ export async function sendDiscordNotification(message: DiscordMessage) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: message.username || 'MyERAS Reviewer',
+        username: message.username || 'Residency Interview Prep',
         avatar_url: message.avatar_url || 'https://i.imgur.com/AfFp7pu.png',
         ...message,
       }),
@@ -56,7 +56,7 @@ export function sendNewUserNotification(userData: {
 }) {
   const embed: DiscordEmbed = {
     title: '🎉 New User Registration',
-    description: 'A new user has signed up for MyERAS Reviewer',
+    description: 'A new user has signed up for Residency Interview Prep',
     color: 0x00ff00, // Green
     fields: [
       {
@@ -76,7 +76,7 @@ export function sendNewUserNotification(userData: {
       },
     ],
     footer: {
-      text: 'MyERAS Reviewer',
+      text: 'Residency Interview Prep',
     },
     timestamp: new Date().toISOString(),
   };
@@ -126,7 +126,7 @@ export function sendPaymentNotification(paymentData: {
       },
     ],
     footer: {
-      text: 'MyERAS Reviewer - Stripe Payment',
+      text: 'Residency Interview Prep - Stripe Payment',
     },
     timestamp: new Date().toISOString(),
   };
@@ -170,7 +170,7 @@ export function sendApplicationSubmittedNotification(applicationData: {
       },
     ],
     footer: {
-      text: 'MyERAS Reviewer',
+      text: 'Residency Interview Prep',
     },
     timestamp: new Date().toISOString(),
   };
