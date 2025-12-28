@@ -23,7 +23,7 @@ export const PRICING_PLANS = [
   {
     id: 'professional',
     name: 'Professional Interview Mastery',
-    price: 899,
+    price: 1000,
     priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_INTERVIEW_PROFESSIONAL,
     currency: 'usd',
     interval: 'one-time',
