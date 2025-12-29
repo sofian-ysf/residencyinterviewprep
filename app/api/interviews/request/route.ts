@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { sendEmail } from '@/lib/email/gmail-service';
+import { sendInterviewRequestNotification } from '@/lib/discord';
 
 export async function POST(req: NextRequest) {
   try {
@@ -207,6 +208,15 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Send Discord notification
+    await sendInterviewRequestNotification({
+      email: userEmail,
+      name: userName,
+      firstChoice: option1 || `${firstChoice} ${firstChoiceTime}`,
+      timezone,
+      notes,
+    });
 
     return NextResponse.json({
       success: true,

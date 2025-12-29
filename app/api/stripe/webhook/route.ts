@@ -86,9 +86,9 @@ export async function POST(req: NextRequest) {
 
       case 'checkout.session.completed':
         const session = event.data.object as Stripe.Checkout.Session;
-        
+
         if (session.payment_status === 'paid') {
-          await prisma.payment.create({
+          const checkoutPayment = await prisma.payment.create({
             data: {
               stripeSessionId: session.id,
               stripePaymentIntentId: session.payment_intent as string,
@@ -101,6 +101,15 @@ export async function POST(req: NextRequest) {
               userId: session.metadata?.userId || session.customer_email || 'unknown',
               metadata: session.metadata || undefined,
             },
+          });
+
+          // Send Discord notification for checkout payment
+          await sendPaymentNotification({
+            email: session.customer_email || 'Unknown',
+            name: session.customer_details?.name || undefined,
+            packageName: session.metadata?.planName || checkoutPayment.packageType,
+            amount: checkoutPayment.amount,
+            paymentId: session.payment_intent as string,
           });
         }
         break;

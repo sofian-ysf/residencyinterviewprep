@@ -137,6 +137,59 @@ export function sendPaymentNotification(paymentData: {
   });
 }
 
+export function sendInterviewRequestNotification(requestData: {
+  email: string;
+  name?: string;
+  firstChoice: string;
+  timezone: string;
+  notes?: string;
+}) {
+  const embed: DiscordEmbed = {
+    title: '📅 New Interview Request',
+    description: 'A user has requested to schedule a mock interview',
+    color: 0x9333ea, // Purple
+    fields: [
+      {
+        name: '📧 Email',
+        value: requestData.email,
+        inline: true,
+      },
+      {
+        name: '👤 Name',
+        value: requestData.name || 'Not provided',
+        inline: true,
+      },
+      {
+        name: '📆 1st Choice',
+        value: requestData.firstChoice,
+        inline: false,
+      },
+      {
+        name: '🌍 Timezone',
+        value: requestData.timezone,
+        inline: true,
+      },
+    ],
+    footer: {
+      text: 'Residency Interview Prep',
+    },
+    timestamp: new Date().toISOString(),
+  };
+
+  if (requestData.notes) {
+    embed.fields?.push({
+      name: '📝 Notes',
+      value: requestData.notes,
+      inline: false,
+    });
+  }
+
+  return sendDiscordNotification({
+    content: '📅 **New Interview Scheduling Request!**',
+    embeds: [embed],
+  });
+}
+
 export function sendApplicationSubmittedNotification(applicationData: {
   email: string;
   name?: string;
