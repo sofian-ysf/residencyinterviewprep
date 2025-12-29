@@ -17,7 +17,7 @@ const packages = [
     price: 499,
     description: "Perfect for first-time applicants",
     features: [
-      "3 Full-Length Mock Interviews with Detailed Feedback",
+      "2 Full-Length Mock Interviews with Detailed Feedback",
       "Comprehensive Preparation Booklet",
       "Virtual Interview Setup & Technical Guide",
       "Common Question Response Framework",
@@ -27,13 +27,13 @@ const packages = [
   },
   {
     name: "Professional Interview Mastery",
-    price: 899,
+    price: 1000,
     description: "Most comprehensive preparation",
     features: [
       "Everything in Essential Package",
-      "6 Full-Length Mock Interviews with Expert Coaching",
+      "4 Full-Length Mock Interviews with Expert Coaching",
       "Advanced Preparation Booklet by Ex-Program Directors",
-      "2 One-on-One Strategy Sessions (45 min each)",
+      "One-on-One Strategy Session (20 min)",
       "Personalized Weakness Analysis & Improvement Plan",
       "Behavioral Question Deep-Dive Sessions",
       "Program-Specific Research & Talking Points",
@@ -133,7 +133,7 @@ export default function Home() {
       name: "One-on-One Strategy Sessions",
       description: "Personalized coaching sessions with ex-program directors",
       url: "https://www.residencyinterviewprep.com/services/strategy-sessions",
-      price: "899"
+      price: "1000"
     }
   ];
 

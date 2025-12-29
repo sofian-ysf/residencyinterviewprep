@@ -68,7 +68,7 @@ const mockInterviewFAQs = [
   },
   {
     question: "How much do residency mock interviews cost?",
-    answer: "Our mock interview packages range from $499 to $1,399 depending on the level of preparation you need. Essential Interview Prep ($499) includes 3 mock interviews. Professional Interview Mastery ($899) includes 6 mock interviews with strategy sessions. Elite Interview Concierge ($1,399) includes 10 mock interviews with dedicated mentorship. All packages include preparation materials, feedback reports, and email support."
+    answer: "Our mock interview packages range from $499 to $1,399 depending on the level of preparation you need. Essential Interview Prep ($499) includes 2 mock interviews. Professional Interview Mastery ($1,000) includes 4 mock interviews with a strategy session. Elite Interview Concierge ($1,399) includes 10 mock interviews with dedicated mentorship. All packages include preparation materials, feedback reports, and email support."
   },
   {
     question: "Do you offer a money-back guarantee?",
@@ -119,15 +119,15 @@ export default function MockInterviewsContent() {
         "price": "499",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "description": "3 full-length mock interviews with comprehensive feedback"
+        "description": "2 full-length mock interviews with comprehensive feedback"
       },
       {
         "@type": "Offer",
         "name": "Professional Interview Mastery",
-        "price": "899",
+        "price": "1000",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "description": "6 mock interviews with strategy sessions and video analysis"
+        "description": "4 mock interviews with strategy session and video analysis"
       },
       {
         "@type": "Offer",
@@ -455,7 +455,7 @@ export default function MockInterviewsContent() {
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-700">3 Full-Length Mock Interviews</span>
+                  <span className="text-gray-700">2 Full-Length Mock Interviews</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
@@ -495,7 +495,7 @@ export default function MockInterviewsContent() {
               <h3 className="text-2xl font-bold mb-2">Professional Interview Mastery</h3>
               <p className="text-gray-300 mb-6">Most comprehensive preparation</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold">$899</span>
+                <span className="text-4xl font-bold">$1,000</span>
               </div>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start gap-3">
@@ -504,7 +504,7 @@ export default function MockInterviewsContent() {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-white mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-100">6 Full-Length Mock Interviews with Expert Coaching</span>
+                  <span className="text-gray-100">4 Full-Length Mock Interviews with Expert Coaching</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-white mt-0.5 flex-shrink-0" />
@@ -512,7 +512,7 @@ export default function MockInterviewsContent() {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-white mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-100">2 One-on-One Strategy Sessions (45 min each)</span>
+                  <span className="text-gray-100">One-on-One Strategy Session (20 min)</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-white mt-0.5 flex-shrink-0" />

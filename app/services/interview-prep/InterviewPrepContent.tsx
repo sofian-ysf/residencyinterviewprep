@@ -303,18 +303,6 @@ export default function InterviewPrepContent() {
                     <span className="text-gray-500 ml-2">one-time</span>
                   </div>
 
-                  {/* Value Props */}
-                  {plan.valueProps && (
-                    <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-100">
-                      {plan.valueProps.map((prop: string, idx: number) => (
-                        <div key={idx} className="flex items-start gap-2 mb-2 last:mb-0">
-                          <Star className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-blue-900 font-medium">{prop}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((feature: string, idx: number) => (
                       <li key={idx} className="flex items-start">
