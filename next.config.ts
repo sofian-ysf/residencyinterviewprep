@@ -8,7 +8,16 @@ const nextConfig: NextConfig = {
   
   // Image optimization
   images: {
-    domains: ['myerasreviewer.com', 'images.unsplash.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'myerasreviewer.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -168,41 +177,13 @@ const nextConfig: NextConfig = {
     scrollRestoration: true,
   },
   
-  // ESLint
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  
   // TypeScript
   typescript: {
     ignoreBuildErrors: false,
   },
-  
-  // Webpack optimizations
-  webpack: (config, { isServer }) => {
-    // Optimize chunks
-    if (!isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          commons: {
-            name: 'commons',
-            chunks: 'all',
-            minChunks: 2
-          },
-          react: {
-            name: 'react',
-            chunks: 'all',
-            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/
-          }
-        }
-      };
-    }
-    
-    return config;
-  },
+
+  // Turbopack configuration (Next.js 16 default bundler)
+  turbopack: {},
   
   // Enable React strict mode for better debugging
   reactStrictMode: true,
